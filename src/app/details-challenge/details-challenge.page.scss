@@ -1,0 +1,226 @@
+
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  // font-family: 'Open Sans', sans-serif;
+}
+
+.card-wrapper{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+ion-card{
+  width: 100% !important;
+}
+ion-button{
+  font-size: 0.7em;
+}
+
+.img-showcase div{
+  width: 100%;
+  display: block;
+}
+.img-display{
+    overflow: hidden;
+}
+.moi2{
+  border-radius: 18px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.moi2 img{
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+}
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.img-showcase div{
+    min-width: 100%;
+}
+.img-select{
+    display: flex;
+}
+.img-item{
+    margin: 0.3rem;
+}
+.img-item:nth-child(1),
+.img-item:nth-child(2),
+.img-item:nth-child(3){
+    margin-right: 0;
+}
+.img-item:hover{
+    opacity: 0.8;
+}
+.product-content{
+    padding: 2rem 1rem;
+    box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+i{
+  color: #707070;
+}
+
+
+
+
+.product-detail h2{
+    text-transform: capitalize;
+    color: #707070;
+    padding-bottom: 0.2rem;
+    font-size: 1.2em;
+}
+.product-detail p{
+    font-size: 0.9rem;
+    padding: 0.3rem;
+    opacity: 0.8;
+}
+
+
+ion-content {
+  // ICI ON BLOCK LE SCROLLING
+  --offset-bottom: auto !important;
+  background: #E4E9F7;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+      display: none;
+  }
+}
+.purchase-info{
+    margin: 1.5rem 0;
+}
+
+.purchase-info .btn{
+    border: 1.5px solid #ddd;
+    border-radius: 12px;
+    text-align: center;
+    // padding: 0.8rem 0.8rem 0 0;
+    height: 1.7em;
+    outline: 0;
+    margin-right: 0.2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+
+.purchase-info .btn:first-of-type{
+    background: #3880FF;
+}
+.purchase-info .btn:last-of-type{
+    background: #3880FF;
+}
+
+.purchase-info .btn:hover{
+    opacity: 0.9;
+}
+.social-links{
+    display: flex;
+    align-items: center;
+}
+.social-links a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    color: #707070;
+    border: 1px solid #707070;
+    margin: 0 0.2rem;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.5s ease;
+}
+
+
+// =================Forum css====
+
+.tous,ion-grid {
+  box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.question img {
+  margin-top: 2%;
+  margin-left: 2%;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  object-fit: fill;
+}
+
+.question {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.question span {
+  font-size: 1em;
+  font-weight: 600;
+  margin-top: 4%;
+  margin-left: 3%;
+}
+
+.tous p {
+  margin-left: 2%;
+}
+.mesquestions{
+  margin-bottom: 3% !important;
+}
+.mesnombres{
+  margin-left: auto;
+  color: #3880FF;
+}
+
+ion-modal {
+  --height: 35%;
+  --border-radius: 16px;
+  --box-shadow:  0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgba(209, 213, 219);
+  opacity: 1;
+}
+
+ion-modal ion-toolbar {
+  --background: rgb(93, 149, 164);
+  --color: white;
+}
+
+
+.icons {
+  display: flex;
+
+}
+
+.icons span {
+
+  margin-left: 3px;
+
+  height: 30px;
+  width: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+
+  // box-shadow: inset -1px -1px 2px white, inset 1px 1px 2px white;
+}
+img{
+  width: 100%;
+  height: 100%;
+}

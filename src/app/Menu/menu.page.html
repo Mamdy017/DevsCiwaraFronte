@@ -1,0 +1,128 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="#3880FF">
+      <ion-title>Mon profile</ion-title>
+    </ion-toolbar>
+
+  </ion-header>
+  <style>
+    ion-content::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+  <ion-content>
+    <div *ngIf="!isLoggedIn">
+      <ion-button class="" id="open-custom-dialog" expand="block"
+        style="background-color:#707070;border-radius: 12px; color:white; background-color: #3880FF !important;"
+        (click)="openModal()">Se
+        connecter</ion-button>
+      <ion-button expand="block" style="background-color:#707070;border-radius: 12px; color:white;"
+        id="open-custom-dialog1" (click)="openModal2()">S'inscrire</ion-button>
+    </div>
+    <div *ngIf="isLoggedIn" class="nav-item  dropdown">
+      <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+          <div class=" image d-flex flex-column justify-content-center align-items-center"
+            style="margin-left: 5% !important;"> <button class="btn btn-secondary" style="margin-left: 15% !important;">
+              <img src="{{currentUser.profile}}" height="100" width="100" /></button>
+            <span class="name mt-3">{{currentUser.username}}</span> <span class="idd">{{currentUser.email}}</span>
+            <div class=" d-flex mt-2"> <button class="btn1 btn-dark">Modifier profile</button> </div>
+            <div class="" (click)="logout()">Deconnexion</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content" color="tertiary">
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-buttons slot="start">
+        <ion-menu-button class="men"><ion-icon name="person-circle"></ion-icon></ion-menu-button>
+        <img src="../../assets/lol.png" class="logo logo2" alt="">
+      </ion-buttons>
+      <div class="row Rechercher">
+        <div class="col-md-8 d-flex justify-content-center">
+          <a href="/menu/accueil">Accueil</a>
+          <a href="/menu/challenge">Challenge</a>
+          <a href="/menu/forum">Forum</a>
+          <!-- <a href="#about">About</a> -->
+        </div>
+        <style>
+          a {
+            float: left;
+
+            text-align: center;
+            padding: 20px 16px;
+            text-decoration: none;
+            font-size: 17px;
+          }
+        </style>
+        <div class="col-md-4 py-2">
+          <ion-searchbar color="light" placeholder="Rechercher..."></ion-searchbar>
+        </div>
+      </div>
+      <ion-buttons slot="end">
+        <div *ngIf="!isLoggedIn" style="display: flex;">
+          <ion-button class="connexion" (click)="openModal()" id="open-custom-dialog" expand="block"
+            style="background-color:#707070;border-radius: 12px; color:white;">Se connecter</ion-button>
+          <ion-button class="connexion" id="open-custom-dialog1" (click)="openModal2()">S'inscrire</ion-button>
+        </div>
+        <div *ngIf="isLoggedIn" class="nav-item profile dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <img class="rounded-circle me-lg-2" src="{{currentUser.profile}}" alt="" style="width: 40px; height: 40px;">
+            <span class="d-none d-lg-inline-flex">{{ currentUser.username }}</span>
+          </a>
+        </div>
+        <ion-modal id="example-modal" #modal trigger="open-custom-dialog1">
+          <ng-template>
+            <div class="wrapper">
+              <h1>Demandes</h1>
+              <ion-list lines="none" style="height: 200px; overflow-y: scroll;">
+                <div class="" *ngFor="let demande of voirDemande"
+                  style="margin-bottom: 2%; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; ">
+                  <ion-item style="background-color: red;" button="true"   detail="false" (click)="recupeId(demande.id)" (click)="modal.dismiss()">
+                    <ion-label>{{demande.team[0].nom}}</ion-label>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </div>
+          </ng-template>
+        </ion-modal>
+        <ion-buttons *ngIf="isLoggedIn" slot="" id="open-custom-dialog1" expand="block" style="margin-left: -2% !important;">
+          <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+          <ion-badge color="danger"
+            style="--height: 20px !important; position: absolute; right: -2px; top: -8px;">{{total}}</ion-badge></ion-buttons>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-tabs>
+    <ion-fab #floatingButton vertical="bottom" horizontal="center" translucent="true">
+      <ion-fab-button (click)="goToHome()">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-tab-bar slot="bottom" class="ion-no-border">
+      <ion-tab-button tab="challenge">
+        <ion-icon name="flag"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="tab-conversations" class="comments">
+        <ion-icon name="chatbubbles"></ion-icon>
+        <ion-badge></ion-badge>
+      </ion-tab-button>
+      <svg height="50" viewBox="0 0 100 50" width="100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 0v50H0V0c.543 27.153 22.72 49 50 49S99.457 27.153 99.99 0h.01z" fill="red" fill-rule="evenodd">
+        </path>
+      </svg>
+      <ion-tab-button tab="tab-notifications" class="notifs">
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge></ion-badge>
+      </ion-tab-button>
+      <ion-tab-button tab="tab-profile">
+        <ion-icon name="person"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+</div>

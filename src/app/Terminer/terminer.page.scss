@@ -1,0 +1,50 @@
+@media (min-width: 767px) {
+  ion-card {
+    width: calc(25% - 20px);
+    /* 4 cards on a line */
+
+  }
+
+  ion-card:hover {
+    background-color: #707070 !important;
+    color: #FFF;
+  }
+}
+
+ion-card {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../assets/0_74k8IDWBEFYbq28Y.jpg") !important;
+  color: white;
+  background-size: 300px 200px;
+  font: optional;
+  font-weight: bold;
+}
+
+ion-card-title, ion-card-subtitle {
+  color: white !important;
+  font: optional;
+  font-weight: bold;
+}
+ion-button{
+  color: #FFF;
+    font-weight: bold;
+  font: 1em sans-serif;
+  background-color: #3880FF;
+
+}
+
+@media (max-width: 768px) {
+  ion-card {
+    width: calc(50% - 20px);
+    /* 2 cards on a line */
+  }
+
+  ion-card:hover {
+    background-color: #707070 !important;
+    color: #FFF;
+  }
+  ion-card{
+    margin-left: auto;
+    margin-right: auto;
+    width: 96%;
+}
+}

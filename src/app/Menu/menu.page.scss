@@ -1,0 +1,323 @@
+
+
+ion-tab-bar, .men{
+  display: none;
+}
+
+ion-button{
+  background-color: #3880FF !important;
+}
+
+
+h1 {
+  letter-spacing: -1px;
+}
+
+a {
+  color: #707070;
+  text-decoration: unset;
+}
+a.active{
+  color: red;
+}
+
+.loginbackground {
+  min-height: 692px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.flex-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.center-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.box-root {
+  box-sizing: border-box;
+}
+
+.flex-direction--column {
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.loginbackground-gridContainer {
+  display: grid;
+  grid-template-columns: repeat(16, 86.6px);
+  grid-template-rows: repeat(8, 64px);
+  justify-content: center;
+  margin: 0 -2%;
+  transform: rotate(-12deg) skew(-12deg);
+}
+
+.box-divider--light-all-2 {
+  box-shadow: inset 0 0 0 2px #e3e8ee;
+}
+
+.box-background--blue {
+  background-color: #3880FF;
+}
+
+.box-background--white {
+  background-color: #ffffff;
+}
+
+.box-background--blue800 {
+  background-color: #3880FF;
+}
+
+.box-background--gray100 {
+  background-color: #e3e8ee;
+}
+
+.box-background--cyan200 {
+  background-color: #7fd3ed;
+}
+
+.padding-horizontal--48 {
+  padding: 48px;
+}
+
+.padding-bottom--15 {
+  padding-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+
+  ion-tab-bar{
+    display: flex;
+  }
+
+  .men{
+    display: flex;
+  }
+
+  input {
+    height: 20% !important;
+  }
+
+
+
+  .profile,
+  .Rechercher,.connexion {
+    display: none;
+  }
+  .logo2{
+    width: 70%;
+   margin-left: auto;
+   margin-right: auto;
+  }
+
+
+  ion-button {
+    font-size: 12px !important;
+  }
+
+
+}
+ion-toolbar{
+    background-color: #fff !important;
+  }
+
+
+
+span {
+  display: block;
+  font-size: 20px;
+  line-height: 28px;
+  color: #1a1f36;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+
+
+.grid--50-50 {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+}
+
+
+
+a.ssolink {
+  display: block;
+  text-align: center;
+  font-weight: 600;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.card {
+  width: 120%;
+  background-color: #F8F6FB;
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.image img {
+  transition: all 0.5s
+}
+
+.card:hover .image img {
+  transform: scale(1.5)
+}
+
+.btn {
+  height: 140px;
+  width: 140px;
+  border-radius: 50%
+}
+
+.name {
+  font-size: 22px;
+  font-weight: bold
+}
+
+.idd {
+  font-size: 14px;
+  font-weight: 600
+}
+
+.idd1 {
+  font-size: 12px
+}
+
+.number {
+  font-size: 22px;
+  font-weight: bold
+}
+
+.follow {
+  font-size: 12px;
+  font-weight: 500;
+  color: #707070
+}
+
+.btn1 {
+  height: 40px;
+  width: 150px;
+  border: none;
+  background-color: #707070;
+  color: #aeaeae;
+  font-size: 15px
+}
+
+.text span {
+  font-size: 13px;
+  color: #707070;
+  font-weight: 500
+}
+
+.icons i {
+  font-size: 19px
+}
+
+hr .new1 {
+  border: 1px solid
+}
+
+.join {
+  font-size: 14px;
+  color: #707070;
+  font-weight: bold
+}
+
+.date {
+  background-color: #ccc
+}
+ion-tabs{
+	ion-fab {
+		margin-bottom: env(safe-area-inset-bottom); /* fix notch ios*/
+		ion-fab-button {
+			--box-shadow: none;
+		}
+	}
+	ion-tab-bar {
+		--border: 0;
+		--background: transparent;
+		position: absolute;
+		bottom: 0;
+		left:0; right: 0;
+		width: 100%;
+		&:after{
+			content: " ";
+			width: 100%;
+			bottom: 0;
+			background: var(--ion-color-light);
+			height: env(safe-area-inset-bottom);
+			position: absolute;
+		}
+		ion-tab-button {
+			--background: var(--ion-color-light);
+		}
+		ion-tab-button.comments {
+			margin-right: 0px;
+			border-top-right-radius: 18px;
+		}
+		ion-tab-button.notifs {
+			margin-left: 0px;
+			border-top-left-radius: 18px;
+		}
+		svg {
+			width: 72px;
+			margin-top: 19px;
+			path{
+				fill:  var(--ion-color-light);
+			}
+		}
+	}
+}
+
+
+ion-modal#example-modal {
+  --width: fit-content;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 12px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#example-modal h1 {
+  margin: 20px 20px 10px 20px;
+}
+
+ion-modal#example-modal ion-icon {
+  margin-right: 6px;
+
+  width: 48px;
+  height: 48px;
+
+  padding: 4px 0;
+
+  color: #aaaaaa;
+}
+
+ion-modal#example-modal .wrapper {
+  margin-bottom: 10px;
+}

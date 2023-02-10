@@ -1,0 +1,122 @@
+<ion-content>
+  <div class="blog-card" style="margin-bottom: 15vh;">
+    <img class="img-3" src="../../assets/mobile.jpg">
+    <ion-segment color="primary" [(ngModel)]="type" (ionChange)="segmentChanged($event)" scrollable>
+      <ion-segment-button value="deposit" checked>
+        <ion-label>Tout</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Encours">
+        <ion-label>Encours</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="venir"><ion-label>A venir</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Terminer">
+        <ion-label>Terminer</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div class="inner-part" [ngSwitch]="type">
+      <ion-list *ngSwitchCase="'Terminer'">
+        <div class="content content-1">
+          <span>Les challenges terminer</span>
+          <div class="moi">
+            <div class="slider owl-carousel" *ngFor="let terminer of challengeTerminer">
+              <div class="card">
+                <div class="img"><img src="{{terminer.photo}}" style="height: 100px !important;" alt=""></div>
+                <div class="content1">
+                  <div class="title">{{terminer.titre}}</div>
+                  <div class="sub-title">{{terminer.cate[0].nom}}</div>
+                  <p>{{terminer.description}}</p>
+                  <div class="btn">
+                    <button [routerLink]="['/menu/details',terminer.id]"
+                      style="margin-left: 20% !important; font-size: 1em;">Savoir
+                      plus...</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <style>
+            .moi {
+              width: 100% !important;
+
+            }
+
+            .slider {
+              width: 100% !important;
+            }
+          </style>
+        </div>
+      </ion-list>
+      <div class="content content-2" *ngSwitchCase="'deposit'">
+        <span style="text-align: center; margin-left: auto;margin-right: auto;">Tos leses challenges</span>
+        <div class="moi">
+          <div class="slider owl-carousel" *ngFor="let dec of decroissant">
+            <div class="card">
+              <div class="img"><img src="{{dec.photo}}" style="height: 100px !important;" alt=""></div>
+              <div class="content1">
+                <div class="title">{{dec.titre}}</div>
+                <div class="sub-title">{{dec.cate[0].nom}}</div>
+                <p>{{dec.description}}</p>
+                <div class="btn">
+                  <button [routerLink]="['/menu/details',dec.id]"
+                    style="margin-left: 20% !important; font-size: 1em;">Savoir
+                    plus...</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+        </div>
+      </div>
+      <div class="content content-2" *ngSwitchCase="'Encours'">
+        <span>Les challenges encours</span>
+        <div class="moi">
+          <div class="slider owl-carousel" *ngFor="let encours of challengeEncours">
+            <div class="card">
+              <div class="img"><img src="{{encours.photo}}" style="height: 100px !important;" alt=""></div>
+              <div class="content1">
+                <div class="title">{{encours.titre}}</div>
+                <div class="sub-title">{{encours.cate[0].nom}}</div>
+                <p>{{encours.description}}</p>
+                <div class="btn">
+                  <button [routerLink]="['/menu/details',encours.id]"
+                    style="margin-left: 20% !important; font-size: 1em;">Savoir
+                    plus...</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+        </div>
+      </div>
+      <div class="content content-3" *ngSwitchCase="'venir'">
+        <span>Les challenges à venir</span>
+        <div class="moi">
+          <div class="slider owl-carousel" *ngFor="let avenir of challengeAvenir">
+            <div class="card">
+              <div class="img"><img src="{{avenir.photo}}" style="height: 100px !important;" alt=""></div>
+              <div class="content1">
+                <div class="title">{{avenir.titre}}</div>
+                <div class="sub-title">{{avenir.cate[0].nom}}</div>
+                <p>{{avenir.description}}</p>
+                <div class="btn">
+                  <button [routerLink]="['/menu/details',avenir.id]"
+                    style="margin-left: 20% !important; font-size: 1em;">Savoir plus...</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+
+<!-- </ion-content> -->

@@ -1,0 +1,447 @@
+<ion-content>
+  <div class="card-wrapper" style="margin-top: 32%; margin-bottom: 8vh;">
+    <div [ngSwitch]="type">
+      <div class="card">
+        <!-- card left -->
+        <div class="product-imgs">
+          <div class="img-display">
+            <div class="img-showcase">
+
+              <ion-card [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(\'' + photo + '\')',
+                'background-repeat': 'no-repeat',
+                'background-size': 'cover'}" style="object-fit: fill;">
+                <ion-card-header>
+                  <ion-card-title class="moi2">{{titre}}</ion-card-title>
+                  <ion-card-subtitle class="moi2">Categories:{{cate}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content class="moi2" style="margin-bottom: 20%;">
+                  meta description
+                </ion-card-content>
+                <style>
+                  ion-segment::-webkit-scrollbar {
+                    display: none;
+                  }
+
+                  ion-segment {
+                    background-color: #3880FF;
+                    color: white;
+
+                  }
+
+                  ion-segment-button::part(indicator-background) {
+                    background: #FFF;
+                  }
+
+                  /* Material Design styles */
+                  ion-segment-button.md::part(native) {
+                    color: #000;
+                  }
+
+                  .segment-button-checked.md::part(native) {
+                    color: #fff;
+                  }
+
+                  ion-segment-button.md::part(indicator-background) {
+                    height: 4px;
+                  }
+
+                  /* iOS styles */
+                  ion-segment-button.ios::part(native) {
+                    color: #fff;
+                  }
+
+                  .segment-button-checked.ios::part(native) {
+                    color: #fff;
+                  }
+
+                  ion-segment-button.ios::part(indicator-background) {
+                    border-radius: 20px;
+
+                  }
+                </style>
+                <ion-segment color="primary" [(ngModel)]="type" (ionChange)="segmentChanged($event)" scrollable>
+                  <ion-segment-button value="deposit" checked>
+                    <ion-label>Détails</ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="Code">
+                    <ion-label>Code</ion-label>
+
+                  </ion-segment-button>
+                  <ion-segment-button value="Classement">
+                    <ion-label>Rang</ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="Forum">
+                    <ion-label>Forum</ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button *ngIf="isLoggedIn" value="equipe">
+                    <ion-label>Equipe</ion-label>
+                  </ion-segment-button>
+                </ion-segment>
+
+              </ion-card>
+            </div>
+          </div>
+        </div>
+        <!-- card right -->
+        <style>
+          .essaie {
+            height: 425px;
+            display: grid;
+            overflow-y: scroll;
+            display: grid;
+          }
+
+          .essaie::-webkit-scrollbar {
+            display: none;
+          }
+        </style>
+        <div class=" essaie">
+          <ion-list *ngSwitchCase="'deposit'">
+            <div class="product-content" style="margin-top: 2%;">
+              <div class="product-detail">
+                <h2>Description et critères: </h2>
+                <p>{{description}}</p>
+                <ion-accordion-group #accordionGroup *ngFor="let crite of critere; let i = index">
+                  <ion-accordion [value]="i + 1">
+                    <ion-item slot="header" color="light">
+                      <ion-label
+                        style="font-size: 1.2em; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bold ; color: #3880FF;">Critere
+                        {{i+1}}</ion-label>
+                    </ion-item>
+                    <div class="ion-padding" slot="content">{{crite.critere}}</div>
+                  </ion-accordion>
+                </ion-accordion-group>
+                <style>
+                  ion-accordion {
+                    border-radius: 15px !important;
+                    background-color: white !important;
+                    margin-bottom: 4%;
+                    transition: all 0.3s ease-in-out;
+                    box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.3);
+                  }
+
+                  ion-accordion:hover {
+                    box-shadow: 0px 0px 10px #3880FF;
+                  }
+
+                  ion-item {
+                    background-color: inherit !important;
+                  }
+
+                  .ion-padding {
+                    margin-left: 4% !important;
+                  }
+                </style>
+              </div>
+
+              <div class="purchase-info" style="display: flex;">
+                <button *ngIf="isLoggedIn" type="button" class="btn"
+                  style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal" expand="block">
+                  &nbsp;&nbsp; Équipe <i class="fas fa-plus" style="color: white;"></i> &nbsp;&nbsp;
+                </button>
+                <button *ngIf="!isLoggedIn" type="button" class="btn"
+                  style="font-size: 1.2em;margin-left: auto;margin-right: auto;" routerLink="/menu/connexion"
+                  expand="block">
+                  &nbsp; Équipe <i class="fas fa-plus" style="color: white;"></i>
+                </button> <br>
+                <button *ngIf="isLoggedIn" type="button" class="btn"
+                  style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal5" expand="block">
+                  &nbsp; Solution <i class="fas fa-plus" style="color: white;"></i> &nbsp;
+                </button>
+              </div>
+
+              <ion-modal #modal trigger="open-modal">
+                <ng-template>
+                  <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal.dismiss()">x</h1>
+                  <form [formGroup]="equipe" style=" margin-top: 40px !important; position: absolute;"
+                    (ngSubmit)=" onSubmitEquipe()">
+                    <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Créer votre équipe</h1>
+                    <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
+                    <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                      <input type="text" name="nom" formControlName="nom" placeholder="Nom de l'équipe"
+                        style="margin-bottom: 10%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
+                      <button type="submit"
+                        style="background-color: #3880FF; color: white; padding: 10px 20px; border: none; border-radius: 5px; width: 90%;">Envoyer</button>
+                    </div>
+                  </form>
+                </ng-template>
+              </ion-modal>
+
+              <ion-modal #modal trigger="open-modal5">
+                <ng-template>
+                  <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal.dismiss()">x</h1>
+                  <form [formGroup]="form"
+                    style=" margin-top: 40px !important; position: absolute; margin-left: auto;margin-right: auto;">
+                    <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Joindre le zip du
+                      solution</h1>
+                    <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
+                    <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div>
+                    <div style="display: flex;
+                     flex-direction: column; align-items: center; 
+                    border: 1px solid #707070; margin-bottom: 2%; width: 85%; 
+                    margin-left: auto; margin-right: auto; border-radius: 12px;">
+                      <input type="hidden" formControlName="lienGithub" class="form-control">
+                      <input type="hidden" formControlName="point" class="form-control">
+                      <input type="file" formControlName="source" class="form-control" (change)="uploadFile($event)"
+                        style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
+                    </div>
+                    <button type="submit" (click)="submit()" style="background-color: #3880FF; color: white;
+                         padding: 10px 20px; border: none;
+                         border-radius: 5px; width: 85%; margin-left: 6%;">Envoyer</button>
+                  </form>
+                </ng-template>
+              </ion-modal>
+              <div class="social-links">
+                <i class="fas fa-calendar"></i>
+                <p>&nbsp;Début:&nbsp; </p>
+                <span>{{datedebut | date: 'dd/MM/yyyy'}}</span>
+              </div>
+              <div class="social-links">
+                <i class="fas fa-calendar"></i>
+                <p>&nbsp;Fin: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; </p>
+                <span>{{datefin | date: 'dd/MM/yyyy'}}</span>
+              </div>
+            </div>
+          </ion-list>
+          <ion-list *ngSwitchCase="'Code'">
+            <ion-grid style="margin-top: 5%;">
+              <div class="monLabel" *ngFor="let rang of classement let i = index">
+                <div class="social-media" style="display: flex;justify-content: space-around;">
+                  <b>{{i+1}}</b>
+                  <span>{{rang.team.nom}}</span>
+                  <span>Code</span>
+                  <a href="{{rang.source}}" download=""><i class="bi bi-cloud-arrow-down-fill"
+                      style="color: #3880FF;"></i></a>
+                </div>
+              </div>
+            </ion-grid>
+          </ion-list>
+          <ion-list *ngSwitchCase="'Forum'">
+            <div class="tous" style="margin-top: 2%;">
+
+              <div class="mesquestions">
+                <div class="question">
+                  <img src="../../assets/mobile.jpg" alt="">
+                  <span>Mamady Camara</span>
+                  <span class="mesnombres">2000</span>
+                </div>
+                <p>comment faire ce challenge
+                  comment faire ce challenge </p>
+                <hr style="height: 2px; background-color: #707070;">
+              </div>
+              <div class="mesquestions">
+                <div class="question">
+                  <img src="../../assets/mobile.jpg" alt="">
+                  <span>Mamady Camara</span>
+                  <span class="mesnombres">2000</span>
+                </div>
+                <p>comment faire ce challenge
+                  comment faire ce challenge </p>
+                <hr style="height: 2px; background-color: #707070;">
+              </div>
+              <div class="mesquestions">
+                <div class="question">
+                  <img src="../../assets/mobile.jpg" alt="">
+                  <span>Mamady Camara</span>
+                  <span class="mesnombres">2000</span>
+                </div>
+                <p>comment faire ce challenge
+                  comment faire ce challenge </p>
+                <hr style="height: 2px; background-color: #707070;">
+              </div>
+              <div class="mesquestions">
+                <div class="question">
+                  <img src="../../assets/mobile.jpg" alt="">
+                  <span>Mamady Camara</span>
+                  <span class="mesnombres">2000</span>
+                </div>
+                <p>comment faire ce challenge
+                  comment faire ce challenge </p>
+                <hr style="height: 2px; background-color: #707070;">
+              </div>
+              <h1 style="height: 2px;"></h1>
+            </div>
+          </ion-list>
+          <ion-list *ngSwitchCase="'Classement'">
+            <ion-grid style="margin-top: 5%;">
+              <div class="monLabel" *ngFor="let rang of classement let i = index">
+                <div class="social-media" style="display: flex;justify-content: space-around;">
+                  <a href="#">{{i+1}}</a>
+                  <span>{{rang.team.nom}}</span>
+                  <span>{{rang.total}} p</span>
+                </div>
+              </div>
+            </ion-grid>
+          </ion-list>form
+          <ion-list *ngSwitchCase="'equipe'">
+            <div class="tous" style="margin-top: 2%;">
+
+              <div class="mesquestions" *ngFor="let membre of afficherEquipeMembre1">
+                <div class="question">
+                  <img src="{{membre.profile}}" alt="">
+                  <span>{{membre.nom}} {{membre.prenom}}</span>
+                </div>
+                <hr style="height: 2px; background-color: #707070;">
+              </div>
+              <div class="mesquestions">
+                <div class="question">
+                  <img src="../../assets/mobile.jpg" alt="">
+                  <span>Mamady Camara</span>
+
+                </div>
+
+                <hr style="height: 2px; background-color: #707070;">
+              </div>
+              <div class="mesquestions">
+                <div class="question">
+                  <img src="../../assets/mobile.jpg" alt="">
+                  <span>Mamady Camara</span>
+                </div>
+                <hr style="height: 2px; background-color: #707070;">
+                <button type="button" class="btn" id="open-modal3"
+                  style="font-size: 1.2em;margin-left: 50%;margin-top: 20% !important; background-color: #3880FF;border-radius: 15px;text-align: center;color: #FFF; margin-bottom: 2% !important; height: 35px !important; "
+                  id="open-modal" expand="block">
+                  &nbsp; Nouvelle <i class="fas fa-plus" style="color: white;"></i> &nbsp;
+                </button>
+
+
+                <ion-modal #modal3 trigger="open-modal">
+                  <ng-template>
+                    <form action="" [formGroup]="formUsers" style="margin-top: 10%;">
+                      <ion-list>
+                        <ion-item>
+                          <ion-select placeholder="Sectionner une liste" [multiple]="true">
+                            <ion-select-option value="1" formControlName="userIds">ici</ion-select-option>
+                            <ion-select-option value="3" formControlName="userIds">ici</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                      </ion-list>
+                      <button type="submit"
+                        style="background-color: #3880FF; color: white; padding: 10px 20px; border: none; border-radius: 5px; width: 90%; margin-top: 5% !important; margin-left: 5%;">Envoyer</button>
+                    </form>
+
+                  </ng-template>
+                </ion-modal>
+
+                <form [formGroup]="formUser" (ngSubmit)="submitEquipe()">
+                  <ion-list>
+                    <ion-item>
+                      <ion-label position="stacked">Sélectionnez les utilisateurs</ion-label>
+                      <ion-select multiple="true" formControlName="utilisate">
+                        <ion-select-option  [value]="user.id" *ngFor="let user of users">{{user.nom}}</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-list>
+                  <ion-button type="submit">
+                    Ajouter
+                  </ion-button>
+                </form>
+              </div>
+              <h1 style="height: 20%;"></h1>
+            </div>
+          </ion-list>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .active {
+      /* background-color: #3880FF; */
+      color: #3880FF;
+      font-size: 12px;
+      height: 35px;
+      width: 95px;
+      background-color: white;
+      border-top: 1px solid #707070;
+      border-right: 1px solid #707070;
+      border-left: 1px solid #707070;
+      border-radius: 3px;
+      justify-content: center !important;
+    }
+
+    .social-media {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 10%;
+      background-color: #FFF;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+    }
+
+    .social-media::after {
+      /* background-color: blue; */
+      box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+    }
+
+    .social-media:hover {
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.549);
+      margin-bottom: 2%;
+
+    }
+
+    a {
+      position: relative;
+      background-color: #E6E7E8;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-right: 10% !important;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      box-shadow: 2px 2px 8px 0px #BFBFBF;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration-line: none;
+      border: .2em solid #3880FF;
+    }
+
+    a i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 25px;
+    }
+
+    /* a::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 0.5s ease-in-out;
+    } */
+
+    /* a:nth-child(1):hover::before {
+      transform: scale(1);
+      background-color: #3b5998;
+      color: white;
+    }
+
+    a:nth-child(1) {
+      color: #3b5998;
+    } */
+
+
+
+
+
+
+
+
+
+    .monLabel {
+      display: block !important;
+      margin-bottom: 3%;
+    }
+  </style>
+
+
+</ion-content>

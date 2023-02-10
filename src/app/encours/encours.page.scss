@@ -1,0 +1,225 @@
+@media (min-width: 767px) {
+  ion-card {
+    width: calc(25% - 20px);
+    /* 4 cards on a line */
+
+  }
+
+  ion-card:hover {
+    background-color: #707070 !important;
+    color: #FFF;
+  }
+}
+
+ion-card {
+
+  color: white;
+  background-size: 350px 250px;
+  font: optional;
+  font-weight: bold;
+}
+
+ion-card-title,
+ion-card-subtitle {
+  color: white !important;
+  font: optional;
+  font-weight: bold;
+}
+
+ion-button {
+  color: #FFF;
+  font-weight: bold;
+  font: 1em sans-serif;
+  background-color: #3880FF;
+
+}
+
+@media (max-width: 768px) {
+  ion-card {
+    margin-left: auto;
+    margin-right: auto;
+    width: 96%;
+  }
+
+  ion-card:hover {
+    background-color: #707070 !important;
+    color: #FFF;
+  }
+}
+
+ion-content {
+  // ICI ON BLOCK LE SCROLLING
+  --offset-bottom: auto !important;
+  background: #E4E9F7;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.full-boxer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.box-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.comment-box:hover{
+  margin-top: 12px;
+}
+
+.comment-box{
+  width: 500px;
+  background: white;
+  padding: 20px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 3px 3px 25px rgba(0,0,0,0.3);
+}
+
+.Profile{
+  display: flex;
+  align-items: center;
+}
+
+.profile-image{
+  width: 40px;
+  height: 40px;
+  box-shadow: 2px 2px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.Name{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.Name strong{
+  color: black;
+  font-size: 0.7em;
+}
+
+.Name span{
+  color: gray;
+  margin-top: 2px;
+}
+
+.comment p{
+  color: black;
+  font-size: 12px;
+}
+.tous {
+  box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.question img {
+  margin-top: 2%;
+  margin-left: 2%;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  object-fit: fill;
+}
+
+.question {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.question span {
+  font-size: 1em;
+  font-weight: 600;
+  margin-top: 4%;
+  margin-left: 3%;
+}
+
+.tous p {
+  margin-left: 2%;
+}
+.mesquestions{
+  margin-bottom: 3% !important;
+}
+.mesnombres{
+  margin-left: auto;
+  color: #3880FF;
+}
+
+
+
+::selection{
+  color: #fff;
+  background: #4671EA;
+}
+
+.wrapper2 h2{
+  color: #4671EA;
+  font-size: 18px;
+  text-align: center;
+ 
+}
+.wrapper2 textarea{
+  width: 100%;
+  resize: none;
+  height: 59px;
+  outline: none;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 20px;
+  border-radius: 5px;
+  max-height: 330px;
+  caret-color: #4671EA;
+  border: 1px solid #bfbfbf;
+}
+textarea::placeholder{
+  color: #b3b3b3;
+}
+textarea:is(:focus, :valid){
+  padding: 14px;
+  border: 2px solid #4671EA;
+}
+textarea::-webkit-scrollbar{
+  width: 0px;
+}
+
+

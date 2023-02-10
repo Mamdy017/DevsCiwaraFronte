@@ -1,0 +1,164 @@
+<ion-content>
+  <div class="container">
+    <div class="slide-container swiper" >
+      <button class="button mon" style="margin-left: 50%; position: fixed;
+      
+      left: 0;
+      right: 0;z-index:99" routerLink="/menu/challenge">Challenger</button>
+      <div class="moi21">
+
+        <div class="slide-content">
+          <div class="card-wrapper swiper-wrapper">
+            <ion-slides [options]="options">
+              <div class="card swiper-slide">
+                <div class="image-content">
+                  <span class="overlay"></span>
+                  <div class="card-image">
+                    <img src="../../assets/programmer-1.gif" alt="" class="card-img">
+                  </div>
+                </div>
+  
+                <div class="card-content">
+                  <h2 class="name">Sur DevsCiwara</h2>
+                  <p class="description">Améliorez votre expertise
+                    en prenant part à nos compétitions</p>
+                  <!-- <button class="button" routerLink="/menu/avenir">Challenge</button> -->
+                </div>
+              </div>
+              <div class="card swiper-slide">
+                <div class="image-content">
+                  <span class="overlay"></span>
+  
+                  <div class="card-image">
+                    <img src="../../assets/program.gif" alt="" class="card-img">
+                  </div>
+                </div>
+  
+                <div class="card-content">
+                  <h2 class="name">Sur DevsCiwara</h2>
+                  <p class="description">Rejoignez notre communauté et
+                    relevez des défis pour améliorer vos compétences.</p>
+                </div>
+              </div>
+              <div class="card swiper-slide">
+                <div class="image-content">
+                  <span class="overlay"></span>
+                  <div class="card-image">
+                    <img src="../../assets/Whyprogramming.gif" alt="" class="card-img">
+                  </div>
+                </div>
+  
+                <div class="card-content">
+                  <h2 class="name">Sur DevsCiwara</h2>
+                  <p class="description">Montrez vos compétences et gagnez de
+                    l'expérience en participant à nos challenges.</p>
+                  <!-- <button class="button" routerLink="/menu/avenir">Challenge</button> -->
+                </div>
+              </div>
+              <div class="card swiper-slide">
+                <div class="image-content">
+                  <span class="overlay"></span>
+  
+                  <div class="card-image">
+                    <img src="./../assets/card.gif" alt="" class="card-img">
+                  </div>
+                </div>
+  
+                <div class="card-content">
+                  <h2 class="name" routerLink="/menu/challenge">Sur DevsCiwara</h2>
+                  <p class="description">Devenez un développeur expérimenté en résolvant
+                    des défis techniques sur notre plateforme.</p>
+  
+                  <!-- <button class="button">Challenge</button> -->
+                </div>
+              </div>
+            </ion-slides>
+          </div>
+        </div>
+        <div class="slide-content mon2">
+          <div class="card-wrapper swiper-wrapper">
+            <ion-slides [options]="options">
+              <div class="card swiper-slide">
+                <div class="image-content">
+                  <span class="overlay"></span>
+                  <div class="card-image">
+                    <img src="../../assets/programmer-1.gif" alt="" class="card-img">
+                  </div>
+                </div>
+  
+                <div class="card-content">
+                  <h2 class="name">Sur DevsCiwara</h2>
+                  <p class="description">Améliorez votre expertise
+                    en prenant part à nos compétitions</p>
+                  <!-- <button class="button" routerLink="/menu/avenir">Challenge</button> -->
+                </div>
+              </div>
+              <div class="card swiper-slide">
+                <div class="image-content">
+                  <span class="overlay"></span>
+  
+                  <div class="card-image">
+                    <img src="../../assets/program.gif" alt="" class="card-img">
+                  </div>
+                </div>
+  
+                <div class="card-content">
+                  <h2 class="name">Sur DevsCiwara</h2>
+                  <p class="description">Rejoignez notre communauté et
+                    relevez des défis pour améliorer vos compétences.</p>
+                </div>
+              </div>
+              <div class="card swiper-slide">
+                <div class="image-content">
+                  <span class="overlay"></span>
+                  <div class="card-image">
+                    <img src="../../assets/Whyprogramming.gif" alt="" class="card-img">
+                  </div>
+                </div>
+  
+                <div class="card-content">
+                  <h2 class="name">Sur DevsCiwara</h2>
+                  <p class="description">Montrez vos compétences et gagnez de
+                    l'expérience en participant à nos challenges.</p>
+                  <!-- <button class="button" routerLink="/menu/avenir">Challenge</button> -->
+                </div>
+              </div>
+              <div class="card swiper-slide">
+                <div class="image-content">
+                  <span class="overlay"></span>
+  
+                  <div class="card-image">
+                    <img src="./../assets/card.gif" alt="" class="card-img">
+                  </div>
+                </div>
+  
+                <div class="card-content">
+                  <h2 class="name" routerLink="/menu/challenge">Sur DevsCiwara</h2>
+                  <p class="description">Devenez un développeur expérimenté en résolvant
+                    des défis techniques sur notre plateforme.</p>
+  
+                  <!-- <button class="button">Challenge</button> -->
+                </div>
+              </div>
+            </ion-slides>
+          </div>
+        </div>
+      </div>
+
+     
+    </div>
+    <h2 class="name">Les derniers challenges</h2>
+    <main class="card1" style="margin-bottom: 15vh !important;">
+      <article *ngFor="let chal of challenge">
+        <img class="img" src="{{chal.photo}}">
+        <div class="text">
+          <h3>{{chal.titre}}</h3>
+          <p>{{chal.description.slice(0,60) + '...'}}</p>
+          <button [routerLink]="['/menu/details',chal.id]">Voir plus...</button>
+        </div>
+      </article>
+    </main>
+
+  </div>
+
+</ion-content>
