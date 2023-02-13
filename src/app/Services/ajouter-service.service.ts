@@ -9,9 +9,15 @@ export class AjouterServiceService {
 
   constructor(private http: HttpClient) { }
 
+  AjouterCommentaire(creatorId: number ,  questionId: number,description: string): Observable<any> {
+    const body = { description };
+    return this.http.post(`localhost:8080/devs/auth/commentaire/ajout/${creatorId}/${questionId}`, body);
+  }
+
+
   AjouterTeam(nom: string, creatorId: number, challengeId: number): Observable<any> {
     const body = { nom };
-    return this.http.post(`http://localhost:8080/devs/auth/team/teams/${creatorId}/${challengeId}`, body);
+    return this.http.post(`http://localhost:8080/devs/auth/commentaire/ajout/${creatorId}/${challengeId}`, body);
   }
 
   AjouterS(formData: FormData): Observable<any> {
@@ -33,11 +39,16 @@ export class AjouterServiceService {
     return this.http.post(`http://localhost:8080/devs/auth/teamusrs/teams/${id}/${challengeId}?userIds=${userIds.join(',')}`, { headers });
 
   }
+
   // confirmer() {
   //   return this.http.put(`http://localhost:8080/devs/auth/teamusrs/${teamId}/${iduser1}/${challengeId}`,{});
 
   // }
 
+  question(challengeId:number,userIds:number,question:string): Observable<any>{
+    const body = { question };
+    return this.http.post(`localhost:8080/devs/auth/question/ajout/${challengeId}/${userIds}`,body)
+  }
   confirmer(teamId: number, iduser1: number, challengeId: number) {
     return this.http.put(`http://localhost:8080/devs/auth/teamusrs/${teamId}/${iduser1}/${challengeId}`, {});
 

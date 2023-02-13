@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AvenirPage } from './avenir.page';
 
 import { AvenirPageRoutingModule } from './avenir-routing.module';
- 
+
 @NgModule({
   imports: [
     IonicModule,

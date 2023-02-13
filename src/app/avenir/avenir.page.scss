@@ -4,11 +4,11 @@ ion-content {
     background: #E4E9F7;
     --overflow: hidden;
     overflow: auto;
-  
+
     &::-webkit-scrollbar {
       display: none;
     }
-  
+
   }
 
   .mon {
@@ -60,7 +60,7 @@ span {
     to {
         transform: rotate(359deg);
     }
-} 
+}
 
 @keyframes fadeIn {
     from {

@@ -8,14 +8,27 @@
       <ion-segment-button value="Encours">
         <ion-label>Encours</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="venir"><ion-label>A venir</ion-label>
+      <ion-segment-button value="venir">
+        <ion-label>A venir</ion-label>
       </ion-segment-button>
       <ion-segment-button value="Terminer">
         <ion-label>Terminer</ion-label>
       </ion-segment-button>
     </ion-segment>
+    <style>
+      .essaie {
+        height: 370px;
+        display: grid;
+        overflow-y: scroll;
+        display: grid;
+      }
 
-    <div class="inner-part" [ngSwitch]="type">
+      .essaie::-webkit-scrollbar {
+        display: none;
+      }
+
+    </style>
+    <div  class="inner-part essaie" [ngSwitch]="type">
       <ion-list *ngSwitchCase="'Terminer'">
         <div class="content content-1">
           <span>Les challenges terminer</span>
@@ -46,6 +59,7 @@
             .slider {
               width: 100% !important;
             }
+
           </style>
         </div>
       </ion-list>
@@ -110,7 +124,7 @@
               </div>
             </div>
           </div>
-          
+
           <hr>
         </div>
       </div>

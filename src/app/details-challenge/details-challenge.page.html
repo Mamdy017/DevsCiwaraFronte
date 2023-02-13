@@ -1,4 +1,14 @@
-<ion-content>
+<ng-container *ngIf="isLoading">
+  <div class="moni">
+
+    <div class="Loader">
+      <div class="circle-border">
+        <div class="circle-inside"> </div>
+      </div> <span>Patienter...</span>
+    </div>
+  </div>
+</ng-container>
+<ion-content *ngIf="!isLoading">
   <div class="card-wrapper" style="margin-top: 32%; margin-bottom: 8vh;">
     <div [ngSwitch]="type">
       <div class="card">
@@ -58,16 +68,16 @@
                     border-radius: 20px;
 
                   }
+
                 </style>
                 <ion-segment color="primary" [(ngModel)]="type" (ionChange)="segmentChanged($event)" scrollable>
                   <ion-segment-button value="deposit" checked>
                     <ion-label>Détails</ion-label>
                   </ion-segment-button>
-                  <ion-segment-button value="Code">
+                  <ion-segment-button *ngIf="isChallengeInProgress(datefin)" value="Code">
                     <ion-label>Code</ion-label>
-
                   </ion-segment-button>
-                  <ion-segment-button value="Classement">
+                  <ion-segment-button *ngIf="isChallengeInProgress(datefin)" value="Classement">
                     <ion-label>Rang</ion-label>
                   </ion-segment-button>
                   <ion-segment-button value="Forum">
@@ -94,6 +104,7 @@
           .essaie::-webkit-scrollbar {
             display: none;
           }
+
         </style>
         <div class=" essaie">
           <ion-list *ngSwitchCase="'deposit'">
@@ -105,7 +116,8 @@
                   <ion-accordion [value]="i + 1">
                     <ion-item slot="header" color="light">
                       <ion-label
-                        style="font-size: 1.2em; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bold ; color: #3880FF;">Critere
+                        style="font-size: 1.2em; font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: bold ; color: #3880FF;">
+                        Critere
                         {{i+1}}</ion-label>
                     </ion-item>
                     <div class="ion-padding" slot="content">{{crite.critere}}</div>
@@ -131,21 +143,22 @@
                   .ion-padding {
                     margin-left: 4% !important;
                   }
+
                 </style>
               </div>
 
               <div class="purchase-info" style="display: flex;">
-                <button *ngIf="isLoggedIn" type="button" class="btn"
+                <button *ngIf="isLoggedIn  " type="button" class="btn"
                   style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal" expand="block">
                   &nbsp;&nbsp; Équipe <i class="fas fa-plus" style="color: white;"></i> &nbsp;&nbsp;
                 </button>
-                <button *ngIf="!isLoggedIn" type="button" class="btn"
+                <button *ngIf="!isLoggedIn " type="button" class="btn"
                   style="font-size: 1.2em;margin-left: auto;margin-right: auto;" routerLink="/menu/connexion"
                   expand="block">
                   &nbsp; Équipe <i class="fas fa-plus" style="color: white;"></i>
                 </button> <br>
-                <button *ngIf="isLoggedIn" type="button" class="btn"
-                  style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal5" expand="block">
+                <button type="button" class="btn" style="font-size: 1.2em;margin-left: auto;margin-right: auto;"
+                  id="open-modal5" expand="block">
                   &nbsp; Solution <i class="fas fa-plus" style="color: white;"></i> &nbsp;
                 </button>
               </div>
@@ -156,8 +169,7 @@
                   <form [formGroup]="equipe" style=" margin-top: 40px !important; position: absolute;"
                     (ngSubmit)=" onSubmitEquipe()">
                     <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Créer votre équipe</h1>
-                    <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
-                    <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div>
+
                     <div style="display: flex; flex-direction: column; align-items: center;">
                       <input type="text" name="nom" formControlName="nom" placeholder="Nom de l'équipe"
                         style="margin-bottom: 10%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
@@ -168,18 +180,18 @@
                 </ng-template>
               </ion-modal>
 
-              <ion-modal #modal trigger="open-modal5">
+              <ion-modal #modal5 trigger="open-modal5">
                 <ng-template>
-                  <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal.dismiss()">x</h1>
+                  <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal5.dismiss()">x</h1>
                   <form [formGroup]="form"
                     style=" margin-top: 40px !important; position: absolute; margin-left: auto;margin-right: auto;">
                     <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Joindre le zip du
                       solution</h1>
-                    <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
-                    <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div>
+                    <!-- <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
+                    <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div> -->
                     <div style="display: flex;
-                     flex-direction: column; align-items: center; 
-                    border: 1px solid #707070; margin-bottom: 2%; width: 85%; 
+                     flex-direction: column; align-items: center;
+                    border: 1px solid #707070; margin-bottom: 2%; width: 85%;
                     margin-left: auto; margin-right: auto; border-radius: 12px;">
                       <input type="hidden" formControlName="lienGithub" class="form-control">
                       <input type="hidden" formControlName="point" class="form-control">
@@ -218,9 +230,36 @@
             </ion-grid>
           </ion-list>
           <ion-list *ngSwitchCase="'Forum'">
-            <div class="tous" style="margin-top: 2%;">
 
-              <div class="mesquestions">
+            <button class="button mon" id="open-modal1" style="margin-left: 50%;
+            right: 0;z-index:99">Question <i class="fas fa-plus" style="color: white;"></i> &nbsp;&nbsp;</button>
+            <ion-modal #modal trigger="open-modal1">
+              <ng-template>
+                <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal.dismiss()">x</h1>
+                <form [formGroup]="question" style=" margin-top: 40px !important; position: absolute;"
+                  (ngSubmit)=" onSubmitQuestion()">
+                  <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Poser une question</h1>
+
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <input type="text" name="question" formControlName="question" placeholder="Poser une question"
+                      style="margin-bottom: 10%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
+                    <button type="submit"
+                      style="background-color: #3880FF; color: white; padding: 10px 20px; border: none; border-radius: 5px; width: 90%;">Envoyer</button>
+                  </div>
+                </form>
+              </ng-template>
+            </ion-modal>
+            <div class="tous" style="margin-top: 2%;">
+              <div class="mesquestions" *ngFor="let question of voirQuestionParChallenge" [routerLink]="['/menu/encours',question.id]" style="cursor: po;">
+                <div class="question">
+                  <img src="{{question.utilisateurs.photo}}" alt="">
+                  <span>{{question.utilisateurs.nom}} {{question.utilisateurs.prenom}}</span>
+
+                </div>
+                <p>{{question.question}}</p>
+                <hr style="height: 2px; background-color: #707070;">
+              </div>
+              <div class="mesquestions" routerLink="/menu/encours" style="cursor: po;">
                 <div class="question">
                   <img src="../../assets/mobile.jpg" alt="">
                   <span>Mamady Camara</span>
@@ -273,7 +312,7 @@
                 </div>
               </div>
             </ion-grid>
-          </ion-list>form
+          </ion-list>
           <ion-list *ngSwitchCase="'equipe'">
             <div class="tous" style="margin-top: 2%;">
 
@@ -329,7 +368,7 @@
                     <ion-item>
                       <ion-label position="stacked">Sélectionnez les utilisateurs</ion-label>
                       <ion-select multiple="true" formControlName="utilisate">
-                        <ion-select-option  [value]="user.id" *ngFor="let user of users">{{user.nom}}</ion-select-option>
+                        <ion-select-option [value]="user.id" *ngFor="let user of users">{{user.nom}}</ion-select-option>
                       </ion-select>
                     </ion-item>
                   </ion-list>
@@ -441,6 +480,7 @@
       display: block !important;
       margin-bottom: 3%;
     }
+
   </style>
 
 

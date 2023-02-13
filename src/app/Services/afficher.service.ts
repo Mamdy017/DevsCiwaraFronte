@@ -18,7 +18,7 @@ export class AfficherService {
 
   recupeId(id: number): Observable<any> {
     return  this.http.get(`http://localhost:8080/devs/auth/teamusrs/teamUserId/${id}`)
-   
+
   }
   constructor(private http: HttpClient ) { }
   afficherChallenge() :Observable<any>{
@@ -71,7 +71,15 @@ export class AfficherService {
   VoirDemande(idusers:number) :Observable<any>{
     return this.http.get(`http://localhost:8080/devs/auth/teamusrs/user/${idusers}`)
   }
-
+  Voirqquestion() :Observable<any>{
+    return this.http.get(`http://localhost:8080/devs/auth/question/afficher`)
+  }
+  VoirquestionParChallenge(idChallenge:number) :Observable<any>{
+    return this.http.get(`http://localhost:8080/devs/auth/question/afficher/${idChallenge}`)
+  }
+  VoirquestionParId(id:number) :Observable<any>{
+    return this.http.get(`http://localhost:8080/devs/auth/question/afficherParId/${id}`)
+  }
 
 
 

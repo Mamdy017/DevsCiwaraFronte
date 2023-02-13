@@ -29,7 +29,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'encours',
+        path: 'encours/:id',
         loadChildren: () => import('../encours/encours.module').then( m => m.EncoursPageModule)
       },
       {

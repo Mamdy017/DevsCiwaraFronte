@@ -100,7 +100,6 @@ export class ConxexionPage implements OnInit {
   }
 
   refreshPage() {
-
     location.reload();
   }
 

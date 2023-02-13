@@ -1,27 +1,28 @@
-<ion-content >
+<ion-content>
   <ng-container *ngIf="isLoading">
     <div class="mon">
 
       <div class="Loader">
-          <div class="circle-border">
-              <div class="circle-inside"> </div>
-          </div> <span>Patienter...</span>
+        <div class="circle-border">
+          <div class="circle-inside"> </div>
+        </div> <span>Patienter...</span>
       </div>
     </div>
   </ng-container>
   <ng-container *ngIf="!isLoading">
     <!-- afficher les détails du défi -->
-      <section class="container forms " style="background-color: white; border-radius: 12px; width: 94%; margin-left: auto; margin-right: auto; height: 300px; margin-top: 50%;  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; margin-bottom: 2%;">
-      <h1 >Createur: {{createur}}</h1>
-      <h1 >Equipe:{{equipe}} </h1>
-      <h1 >Equipe:{{challenge}} </h1>
-      <h1 > Du {{debut  | date: 'dd/MM/yyyy'}} </h1>
-      <h1 >AU {{fin  | date: 'dd/MM/yyyy'}} </h1>
+    <section class="container forms "
+      style="background-color: white; border-radius: 12px; width: 94%; margin-left: auto; margin-right: auto; height: 300px; margin-top: 50%;  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; margin-bottom: 2%;">
+      <h1>Createur: {{createur}}</h1>
+      <h1>Equipe:{{equipe}} </h1>
+      <h1>Equipe:{{challenge}} </h1>
+      <h1> Du {{debut  | date: 'dd/MM/yyyy'}} </h1>
+      <h1>AU {{fin  | date: 'dd/MM/yyyy'}} </h1>
       <ion-button expand="full" (click)="confirmer()">
         Ajouter
       </ion-button>
-     
+
     </section>
   </ng-container>
- 
+
 </ion-content>

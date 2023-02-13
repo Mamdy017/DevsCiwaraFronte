@@ -6,17 +6,18 @@ import { IonAccordionGroup } from '@ionic/angular';
 import { AfficherService } from '../Services/afficher.service';
 import { AjouterServiceService } from '../Services/ajouter-service.service';
 import { StorageService } from '../Services/storage.service';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-details-challenge',
   templateUrl: './details-challenge.page.html',
   styleUrls: ['./details-challenge.page.scss'],
 })
 export class DetailsChallengePage implements OnInit {
-  [x: string]: any;
+
   errorMessage: string = "";
   type = 'deposit';
   equipe!: FormGroup;
+  question!:FormGroup;
   formUsers!: FormGroup;
   content = 1;
   activeOption = 1;
@@ -50,12 +51,11 @@ export class DetailsChallengePage implements OnInit {
   classement: any;
   roles: string[] = [];
   formUser!: FormGroup;
-  selectedUsers!: any[];
+  isLoading = true;
+  allQuestion: any;
+  voirQuestionParChallenge: any;
 
-  submitForm() {
-    console.log(this.selectedUsers);
-    // Traitez les valeurs sélectionnées ici
-  }
+
 
   showContent(opt: number) {
     this.content = opt;
@@ -79,12 +79,16 @@ export class DetailsChallengePage implements OnInit {
     }
     this.serviceAfficher.graphiqueUser().subscribe(data => {
       this.users = data;
-      // console.log("mes ids", this.users)
+    })
+    this.serviceAfficher.Voirqquestion().subscribe(data =>{
+      this.allQuestion=data;
+      console.log("toutes les questions",this.allQuestion)
     })
 
-   this.formUser = new FormGroup({
+
+    this.formUser = new FormGroup({
       utilisate: new FormControl([])
-  
+
     })
     this.isLoggedIn = this.storage.connexionReussi();
 
@@ -100,13 +104,16 @@ export class DetailsChallengePage implements OnInit {
       fileSource: new FormControl('', [Validators.required])
     });
 
-   
+
 
     this.currentUser = this.storage.recupererUser();
-    // console.table(this.currentUser);
     var moi = this.currentUser.id;
     this.idChallenge1 = this.routes.snapshot.params['idChallenge1'];
 
+    this.serviceAfficher.VoirquestionParChallenge(this.idChallenge1).subscribe(data=>{
+      this.voirQuestionParChallenge=data;
+      console.log("toutes les questions par id",this.voirQuestionParChallenge)
+    })
     this.serviceAfficher.afficherParIdChallenge(this.idChallenge1).subscribe(data => {
       this.idChallenge = data;
       this.titre = data.titre;
@@ -119,20 +126,16 @@ export class DetailsChallengePage implements OnInit {
     });
     this.serviceAfficher.afficherCritereParIdChallenge(this.idChallenge1).subscribe(data => {
       this.critere = data;
-      // console.log("mes eeeeeee", JSON.stringify(this.critere));
+      this.isLoading = false;
     });
     this.serviceAfficher.classements(this.idChallenge1).subscribe(data => {
       this.classement = data;
-      // console.log("mes classements", JSON.stringify(this.classement))
     });
 
     this.serviceAfficher.afficherEquipeParUtilisateur(this.idChallenge1, moi).subscribe(data => {
       this.afficherEquipeParUtilisateur = data;
-      // console.log("teammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm" + JSON.stringify(this.afficherEquipeParUtilisateur[0].id) + "idusers"+ moi);
       var idTeam1 = this.afficherEquipeParUtilisateur[0].id;
       this.idTeam = this.afficherEquipeParUtilisateur[0].id;
-      // console.log("id teams" + idTeam1);
-
       this.serviceAfficher.afficherEquipeMembre(this.idChallenge1, idTeam1).subscribe(data => {
         this.afficherEquipeMembre1 = data;
       });
@@ -140,54 +143,128 @@ export class DetailsChallengePage implements OnInit {
 
     this.serviceAfficher.afficherUtilisateur().subscribe(data => {
       this.utilisateurAffichage = data;
-      //  console.log("mes users" + JSON.stringify(this.utilisateurAffichage)+ "et id" + this.utilisateurAffichage[0].id);
-
     });
 
     this.equipe = new FormGroup({
       nom: new FormControl('', Validators.required),
+    });
+    this.question = new FormGroup({
+      question: new FormControl('', Validators.required),
     });
     this.formUsers = new FormGroup({
       idseurs: new FormControl(''),
     });
 
     this.currentUser = this.storage.recupererUser();
-    // console.table(this.currentUser);
     this.iduser1 = this.currentUser.id;
     moi = this.currentUser.id;
   }
-  @ViewChild('accordionGroup', { static: true })
-  accordionGroup!: IonAccordionGroup;
-
-  toggleAccordion = () => {
-    const nativeEl = this.accordionGroup;
-    if (nativeEl.value === 'second') {
-      nativeEl.value = undefined;
-    } else {
-      nativeEl.value = 'second';
-    }
-  };
+  // =================================Ajout d'une equipe ====================================================
 
   onSubmitEquipe() {
     const team = this.equipe.value.nom;
     const creatorId = this.iduser1;
     const challengeId = this.idChallenge1;
-    this.serviceAjouter.AjouterTeam(team, creatorId, challengeId).subscribe(data => {
-      this.errorMessage = data.message;
-      this.status = data.status;
-      this.equipe.reset();
-    });
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: '',
+        cancelButton: ''
+      },
+      heightAuto: false
+
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: "<h1 style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Êtes vous sur de vouloir confimer?</h1>",
+      showCancelButton: true,
+      confirmButtonText: '<span style="font-size:.9em">Confirmer</span>',
+      cancelButtonText: `<span style="font-size:.9em"> Annuler</span>`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceAjouter.AjouterTeam(team, creatorId, challengeId).subscribe(data => {
+          this.errorMessage = data.message;
+          this.status = data.status;
+          if (this.status == true) {
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
+            )
+            this.equipe.reset();
+          } else if (this.status == false) {
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
+            )
+          }
+          //
+        });
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          '',
+          "<h1 style='font-size:.9em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Opération annulée</h1>",
+          'error'
+        )
+      }
+    })
+
 
   }
-  // onSubmitUsers(){
-  //   const formData = new FormData();
-  //   formData.append('userIds', this.formUsers.value.idseurs);
-  //   console.log("avant" + this.formUsers.value.idseurs);
-  //   this.serviceAjouter.AjouterUserEquipe(formData).subscribe(data => {
-  //     console.log("mmmm" + JSON.stringify(data))
-  //     this.formUsers.reset();
-  //   });
-  // }
+
+
+
+  onSubmitQuestion() {
+    const question = this.question.value.question;
+    const creatorId = this.iduser1;
+    const challengeId = this.idChallenge1;
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: '',
+        cancelButton: ''
+      },
+      heightAuto: false
+
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: "<h1 style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Êtes vous sur de vouloir poser cette question?</h1>",
+      showCancelButton: true,
+      confirmButtonText: '<span style="font-size:.9em">Confirmer</span>',
+      cancelButtonText: `<span style="font-size:.9em"> Annuler</span>`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceAjouter.question(challengeId , creatorId, question).subscribe(data => {
+          this.errorMessage = data.message;
+          this.status = data.status;
+          if (this.status == true) {
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
+            )
+            this.equipe.reset();
+          } else if (this.status == false) {
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
+            )
+          }
+          //
+        });
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          '',
+          "<h1 style='font-size:.9em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Opération annulée</h1>",
+          'error'
+        )
+      }
+    })
+
+
+  }
+
   uploadFilec(files: FileList) {
     this.form.value.source.setValue(files.item(0));
   }
@@ -201,60 +278,75 @@ export class DetailsChallengePage implements OnInit {
       });
     }
   }
+
+  // =========================================Ajout d'une solution par l'equipe=====================
   submit() {
     const formData = new FormData();
     formData.append('lienGithub', this.form.value.lienGithub);
     formData.append('source', this.form.value.fileSource, this.form.value.fileSource.name);
     formData.append('point', this.form.value.point);
-    console.log("hfhfh" + this.form.value.fileSource.name)
-    this.serviceAjouter.ajouterSolution(this.idChallenge1, this.idTeam, this.iduser1, formData).subscribe(data => {
-      this.errorMessage = data.message;
-      this.status = data.status;
-      this.equipe.reset();
-    })
-    // this.http.post<any>(`http://localhost:8080/devs/auth/solution/ajout/${this.idChallenge1}/${this.idTeam}/${this.iduser1}`, formData)
-    //   .subscribe(
-    //     (res) => console.log(res),
-    //     (err) => console.error(err)
-    //   );
-  }
-  // onSubmit() {
-  //   console.log("mes avants" + this.userIds.split(',').map(id => +id));
-  //   this.serviceAjouter.addTeamUsersToTeamForChallenge(this.userIds.split(',').map(id => +id), this.teamId, this.challengeId)
-  //     .subscribe(response => {
-  //       this.message = response.message;
-  //       this.success = response.success;
-  //     });
-  // }
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: '',
+        cancelButton: ''
+      },
+      heightAuto: false
 
+    })
+    swalWithBootstrapButtons.fire({
+      title: "<h1 style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Êtes vous sur de vouloir ajouter la solution?</h1>",
+      showCancelButton: true,
+      confirmButtonText: '<span style="font-size:.9em">Confirmer</span>',
+      cancelButtonText: `<span style="font-size:.9em"> Annuler</span>`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceAjouter.ajouterSolution(this.idChallenge1, this.idTeam, this.iduser1, formData).subscribe(data => {
+          this.errorMessage = data.message;
+          this.status = data.status;
+
+          if (this.status == true) {
+
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
+            )
+            this.form.reset();
+          } else if (this.status == false) {
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; color:red'>${this.errorMessage}.</h1>`,
+            )
+          }
+          // this.equipe.reset();
+        });
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          '',
+          "<h1 style='font-size:.9em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Opération annulée</h1>",
+          'error'
+        )
+      }
+    })
+
+
+
+  }
+  isChallengeInProgress(startDate: string): boolean {
+    const challengeStartDate = new Date(startDate.split('T')[0]);
+    const currentDate = new Date();
+    return challengeStartDate <= currentDate;
+  }
   submitEquipe() {
-    this.serviceAjouter.addTeamUsersToTeamForChallenge([3, 1, 4], 1, 4)
+    var userIds = this.formUser.value.utilisate;
+    this.serviceAjouter.addTeamUsersToTeamForChallenge(userIds, this.idTeam, this.idChallenge1)
       .subscribe(res => {
         console.log(res);
       });
   }
-  // submitEquipe(){
-  //   var userIds = this.formUser.value.utilisate;
-  //   console.log("mes ========================================= " + userIds);
-  //   this.serviceAjouter.addTeamUsersToTeamForChallenge(this.idTeam, this.idChallenge1,userIds)
-  //   .subscribe(res => {
-  //     console.log(res);
-  //   });
-  // }
-
-  // submitEquipe() {
-  //   console.log("je suis ======================================la",this.formUser.value.get('utilisate'));
-  // }
-
-  // submitEquipe() {
-  //   console.log("mes desss ", this.formUser.value.utilisate);
-  // }
-
-  
-
 
   segmentChanged(ev: any) {
-    console.log('Segment changed', ev);
   }
 
 }
