@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AfficherService } from '../Services/afficher.service';
 import { interval } from 'rxjs';
 import { AjouterServiceService } from '../Services/ajouter-service.service';
@@ -26,8 +26,10 @@ export class AvenirPage {
   currentUser: any;
   moi: any;
   donnees: any;
+  profile: any;
 
-  constructor(private storage: StorageService, private serviceAfficher: AfficherService, private routes: ActivatedRoute, private serviceAjouter: AjouterServiceService,) { }
+  constructor(private storage: StorageService, private serviceAfficher: AfficherService,
+     private routes: ActivatedRoute, private serviceAjouter: AjouterServiceService,private router: Router) { }
 
 
   challenge: any;
@@ -47,6 +49,7 @@ export class AvenirPage {
     this.serviceAfficher.recupeId(this.id).subscribe(data => {
       this.teamParId = data;
       this.createur = this.teamParId.team[0].utilisateurs.nom;
+      this.profile=this.teamParId.team[0].utilisateurs.profile;
       this.equipe = this.teamParId.team[0].nom;
       this.challenge = this.teamParId.challenge.titre;
       this.debut = this.teamParId.challenge.datedebut;
@@ -69,20 +72,16 @@ export class AvenirPage {
       if (result.isConfirmed) {
         this.serviceAjouter.confirmer(this.id, this.moi, this.idChallenge).subscribe(data => {
           this.donnees = data;
-         // console.log("mes donnees", this.donnees);
-
-
-
         })
         Swal.fire({
           icon: 'success',
           title: "<h1 style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Demande confirméé!!</h1>",
           heightAuto: false
-
-        }
-        )
-
-
+        })
+        setTimeout(() => {
+          this.router.navigateByUrl('menu');
+          location.reload()
+          }, 1000);
       } else if (result.isDenied) {
         Swal.fire({
           timer: 1500,

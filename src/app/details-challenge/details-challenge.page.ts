@@ -54,6 +54,7 @@ export class DetailsChallengePage implements OnInit {
   isLoading = true;
   allQuestion: any;
   voirQuestionParChallenge: any;
+  etat: any;
 
 
 
@@ -119,9 +120,13 @@ export class DetailsChallengePage implements OnInit {
       this.titre = data.titre;
       this.description = data.description;
       this.datefin = data.datefin;
+      this.etat=data.etat;
+      console.log("mes etat",this.etat)
       this.cate = data.cate[0].nom;
       this.photo = data.photo;
       this.datedebut = data.datedebut;
+
+      console.log("mes donnnnnnesnsnsnns", JSON.stringify(data))
 
     });
     this.serviceAfficher.afficherCritereParIdChallenge(this.idChallenge1).subscribe(data => {

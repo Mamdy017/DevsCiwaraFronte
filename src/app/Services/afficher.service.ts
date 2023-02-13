@@ -81,6 +81,10 @@ export class AfficherService {
     return this.http.get(`http://localhost:8080/devs/auth/question/afficherParId/${id}`)
   }
 
+  VoirCommentaireParId(id:number) :Observable<any>{
+    return this.http.get(`http://localhost:8080/devs/auth/commentaire/afficher/${id}`)
+  }
+
 
 
 

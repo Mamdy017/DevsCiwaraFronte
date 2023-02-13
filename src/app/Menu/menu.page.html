@@ -2,11 +2,16 @@
   <ion-header>
     <ion-toolbar color="#3880FF">
       <ion-title>Mon profile</ion-title>
+      <ion-buttons *ngIf="isLoggedIn" slot="end">
+        <ion-icon (click)="logout()"  name="power-outline" style="font-size: 2em;"></ion-icon>
+      </ion-buttons>
     </ion-toolbar>
-
   </ion-header>
   <style>
     ion-content::-webkit-scrollbar {
+      display: none;
+    }
+    .banner::-webkit-scrollbar {
       display: none;
     }
   </style>
@@ -19,7 +24,7 @@
       <ion-button expand="block" style="background-color:#707070;border-radius: 12px; color:white;"
         id="open-custom-dialog1" (click)="openModal2()">S'inscrire</ion-button>
     </div>
-    <div *ngIf="isLoggedIn" class="nav-item  dropdown">
+    <!-- <div *ngIf="isLoggedIn" class="nav-item  dropdown">
       <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
         <div class="card p-4">
           <div class=" image d-flex flex-column justify-content-center align-items-center"
@@ -31,6 +36,25 @@
           </div>
         </div>
       </div>
+    </div> -->
+    <div class="card" *ngIf="isLoggedIn" style="margin-top: 2vh;">
+      <div class="banner" style=" background-image: url('https://images.unsplash.com/photo-1545703549-7bdb1d01b734?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ');">
+        <div class="moi">
+          <img src="{{currentUser.profile}}" alt="">
+        </div>
+      </div>
+      <div class="menu">
+        <div class="opener"><span></span><span></span><span></span></div>
+      </div>
+      <h2 class="name">{{currentUser.username}}</h2>
+      <div class="title">{{currentUser.email}}</div>
+      <div class="actions">
+        <div class="follow-btn">
+          <button>Modifier profile</button>
+        </div>
+      </div>
+     
+      
     </div>
   </ion-content>
 </ion-menu>
@@ -81,7 +105,8 @@
               <ion-list lines="none" style="height: 200px; overflow-y: scroll;">
                 <div class="" *ngFor="let demande of voirDemande"
                   style="margin-bottom: 2%; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; ">
-                  <ion-item style="background-color: red;" button="true"   detail="false" (click)="recupeId(demande.id)" (click)="modal.dismiss()">
+                  <ion-item style="background-color: red;" button="true" detail="false" (click)="recupeId(demande.id)"
+                    (click)="modal.dismiss()">
                     <ion-label>{{demande.team[0].nom}}</ion-label>
                   </ion-item>
                 </div>
@@ -89,7 +114,8 @@
             </div>
           </ng-template>
         </ion-modal>
-        <ion-buttons *ngIf="isLoggedIn" slot="" id="open-custom-dialog1" expand="block" style="margin-left: -2% !important;">
+        <ion-buttons *ngIf="isLoggedIn" slot="" id="open-custom-dialog1" expand="block"
+          style="margin-left: -2% !important;">
           <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
           <ion-badge color="danger"
             style="--height: 20px !important; position: absolute; right: -2px; top: -8px;">{{total}}</ion-badge></ion-buttons>
@@ -112,7 +138,7 @@
         <ion-badge></ion-badge>
       </ion-tab-button>
       <svg height="50" viewBox="0 0 100 50" width="100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M100 0v50H0V0c.543 27.153 22.72 49 50 49S99.457 27.153 99.99 0h.01z" fill="red" fill-rule="evenodd">
+        <path d="M100 0v50H0V0c.543 27.153 22.72 49 50 49S99.457 27.153 99.99 0h.01z" fill="white" fill-rule="evenodd">
         </path>
       </svg>
       <ion-tab-button tab="tab-notifications" class="notifs">

@@ -67,7 +67,7 @@ ion-content {
 
 .main{
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -142,7 +142,7 @@ ion-content {
 
 .comment p{
   color: black;
-  font-size: 12px;
+  font-size: 1em;
 }
 .tous {
   box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.3);
