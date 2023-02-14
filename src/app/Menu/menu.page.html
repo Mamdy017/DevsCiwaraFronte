@@ -3,7 +3,7 @@
     <ion-toolbar color="#3880FF">
       <ion-title>Mon profile</ion-title>
       <ion-buttons *ngIf="isLoggedIn" slot="end">
-        <ion-icon (click)="logout()"  name="power-outline" style="font-size: 2em;"></ion-icon>
+        <ion-icon (click)="logout()" name="power-outline" style="font-size: 2em;"></ion-icon>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
@@ -11,6 +11,7 @@
     ion-content::-webkit-scrollbar {
       display: none;
     }
+
     .banner::-webkit-scrollbar {
       display: none;
     }
@@ -38,7 +39,8 @@
       </div>
     </div> -->
     <div class="card" *ngIf="isLoggedIn" style="margin-top: 2vh;">
-      <div class="banner" style=" background-image: url('https://images.unsplash.com/photo-1545703549-7bdb1d01b734?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ');">
+      <div class="banner"
+        style=" background-image: url('https://images.unsplash.com/photo-1545703549-7bdb1d01b734?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ');">
         <div class="moi">
           <img src="{{currentUser.profile}}" alt="">
         </div>
@@ -53,8 +55,8 @@
           <button>Modifier profile</button>
         </div>
       </div>
-     
-      
+
+
     </div>
   </ion-content>
 </ion-menu>
@@ -133,21 +135,21 @@
       <ion-tab-button tab="challenge">
         <ion-icon name="flag"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="tab-conversations" class="comments">
+      <!-- <ion-tab-button tab="tab-conversations" class="comments">
         <ion-icon name="chatbubbles"></ion-icon>
         <ion-badge></ion-badge>
-      </ion-tab-button>
+      </ion-tab-button> -->
       <svg height="50" viewBox="0 0 100 50" width="100" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 0v50H0V0c.543 27.153 22.72 49 50 49S99.457 27.153 99.99 0h.01z" fill="white" fill-rule="evenodd">
         </path>
       </svg>
       <ion-tab-button tab="tab-notifications" class="notifs">
-        <ion-icon name="notifications"></ion-icon>
-        <ion-badge></ion-badge>
+        <ion-icon name="bookmark-outline"></ion-icon>
+        <ion-badge>5353</ion-badge>
       </ion-tab-button>
-      <ion-tab-button tab="tab-profile">
+      <!-- <ion-tab-button tab="tab-profile">
         <ion-icon name="person"></ion-icon>
-      </ion-tab-button>
+      </ion-tab-button> -->
     </ion-tab-bar>
   </ion-tabs>
 

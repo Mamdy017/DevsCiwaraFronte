@@ -15,9 +15,9 @@ export class AjouterServiceService {
   }
 
 
-  AjouterTeam(nom: string, creatorId: number, challengeId: number): Observable<any> {
+  AjouterTeam(nom: string,creatorId: number, challengeId: number): Observable<any> {
     const body = { nom };
-    return this.http.post(`http://localhost:8080/devs/auth/commentaire/ajout/${creatorId}/${challengeId}`, body);
+    return this.http.post(`http://localhost:8080/devs/auth/team/teams/${creatorId}/${challengeId}`, body);
   }
 
   dislike(questionid: any,): Observable<any> {
