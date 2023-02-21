@@ -24,6 +24,7 @@ export class DetailsChallengePage implements OnInit {
   idChallenge: any;
   titre: any;
   description: any;
+  showSolutionButton: boolean = false;
   datefin: any;
   cate: any;
   datedebut: any;
@@ -109,10 +110,10 @@ export class DetailsChallengePage implements OnInit {
     });
 
     this.form1 = new FormGroup({
-      lienGithub: new FormControl('', Validators.required),
-      point: new FormControl('', Validators.required),
-      source: new FormControl('', Validators.required),
-      fileSource: new FormControl('', [Validators.required])
+      lienGithub1: new FormControl('', Validators.required),
+      point1: new FormControl('', Validators.required),
+      source1: new FormControl('', Validators.required),
+      fileSource1: new FormControl('', [Validators.required])
     });
 
 
@@ -165,9 +166,7 @@ export class DetailsChallengePage implements OnInit {
     this.question = new FormGroup({
       question: new FormControl('', Validators.required),
     });
-    this.formUsers = new FormGroup({
-      idseurs: new FormControl(''),
-    });
+   
 
     this.currentUser = this.storage.recupererUser();
     this.iduser1 = this.currentUser.id;
@@ -290,9 +289,9 @@ export class DetailsChallengePage implements OnInit {
   }
   uploadFileuser(event: any) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+      const file1 = event.target.files[0];
       this.form1.patchValue({
-        fileSource: file
+        fileSource1: file1
       });
     }
   }
@@ -354,8 +353,8 @@ export class DetailsChallengePage implements OnInit {
 
   submit2() {
     const formData = new FormData();
-    formData.append('lienGithub', this.form1.value.lienGithub);
-    formData.append('source', this.form1.value.fileSource, this.form1.value.fileSource.name);
+    formData.append('lienGithub', this.form1.value.lienGithub1);
+    formData.append('source', this.form1.value.fileSource1, this.form1.value.fileSource1.name);
     // formData.append('point', this.form.value.point);
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -411,7 +410,7 @@ export class DetailsChallengePage implements OnInit {
     const currentDate = new Date();
     return challengeStartDate <= currentDate;
   }
-  submitEquipe() {
+  submitEquipe1() {
     var userIds = this.formUser.value.utilisate;
     alert(userIds)
     this.serviceAjouter.addTeamUsersToTeamForChallenge(userIds, this.idTeam, this.idChallenge1)
@@ -422,7 +421,13 @@ export class DetailsChallengePage implements OnInit {
 
   segmentChanged(ev: any) {
   }
+  toggleSolutionButton() {
+    this.showSolutionButton = !this.showSolutionButton;
+  }
 
+  toggleShowSolution() {
+    this.showSolutionButton = !this.showSolutionButton;
+  }
 }
 function saveAs(body: any, fileName: string) {
   throw new Error('Function not implemented.');

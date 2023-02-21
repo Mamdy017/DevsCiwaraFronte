@@ -40,7 +40,7 @@ export class AjouterServiceService {
   }
   ajouterSolutionUsers(idChallenge1: number, iduser1: number, formData: FormData): Observable<any> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(`http://localhost:8080/devs/auth/solution/ajout/${idChallenge1}/${iduser1}`, formData);
+    return this.http.post<any>(`http://localhost:8080/devs/auth/solution/ajout2/${idChallenge1}/${iduser1}`, formData);
   }
 
   addTeamUsersToTeamForChallenge(userIds: number[], id: number, challengeId: number) {

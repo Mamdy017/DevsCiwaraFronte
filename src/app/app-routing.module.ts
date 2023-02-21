@@ -32,7 +32,11 @@ const routes: Routes = [
   {
     path: 'await',
    component:AwaitComponent
+  },  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   }
+
 
 ];
 @NgModule({

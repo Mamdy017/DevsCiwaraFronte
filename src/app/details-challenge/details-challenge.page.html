@@ -149,20 +149,42 @@
                   style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal" expand="block">
                   &nbsp;&nbsp; Équipe <i class="fas fa-plus" style="color: white;"></i> &nbsp;&nbsp;
                 </button>
-                <button *ngIf="!isLoggedIn && etat=='Encours'" type="button" class="btn"
-                  style="font-size: 1.2em;margin-left: auto;margin-right: auto;" routerLink="/menu/connexion"
-                  expand="block">
-                  &nbsp; Équipe <i class="fas fa-plus" style="color: white;"></i>
-                </button> <br>
-                <button *ngIf="isLoggedIn && etat=='Encours'" type="button" class="btn"
-                  style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal5" expand="block">
-                  &nbsp; Solution <i class="fas fa-plus" style="color: white;"></i> &nbsp;
+                <button *ngIf="isLoggedIn && etat=='Encours' && showSolutionButton" type="button" class="btn"
+                  style="font-size: 1.2em;margin-left: auto;margin-right: auto; color: #707070; background-color: #F4F5F8;" id="show-solution"
+                  (click)="showSolutionButton = false;" expand="block">
+                  Solution individuel
                 </button>
-                <button *ngIf="isLoggedIn && etat=='Encours'" type="button" class="btn"
-                style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal10" expand="block">
-                &nbsp; Solution2 <i class="fas fa-plus" style="color: white;"></i> &nbsp;
-              </button>
+                <button *ngIf="isLoggedIn && etat=='Encours' && !showSolutionButton" type="button" class="btn"
+                  style="font-size: 1.2em;margin-left: auto;margin-right: auto; color: #3880FF;background-color: #F4F5F8;" id="show-solution"
+                  (click)="showSolutionButton = true;" expand="block">
+                  Solution par équipe
+                </button>
+                <button *ngIf="isLoggedIn && etat=='Encours' && !showSolutionButton" type="button" class="btn"
+                  style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal10" expand="block">
+                  &nbsp; Individuel <i class="fas fa-plus" style="color: white;"></i> &nbsp;
+                </button>
+                <ion-segment style="width: 200%;" *ngIf="isLoggedIn && etat=='Encours' && showSolutionButton" [(ngModel)]="type"
+                  (ionChange)="segmentChanged($event)" scrollable>
+                  <ion-segment-button style=" background-color:white !important; width: 100%;" *ngIf="isLoggedIn" value="equipe">
+                    <button type="button" class="btn" style="font-size: 1.2em;margin-left: auto;margin-right: auto;"
+                      id="open-modal5" expand="block">
+                      &nbsp; Par équipe <i class="fas fa-plus" style="color: white;"></i> &nbsp;
+                    </button>
+                  </ion-segment-button>
+                </ion-segment>
               </div>
+              <style>
+                .purchase-info {
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: center;
+                }
+
+                .purchase-info button {
+                  width: 100%;
+                  margin-top: 10px;
+                }
+              </style>
 
               <ion-modal #modal trigger="open-modal">
                 <ng-template>
@@ -181,30 +203,7 @@
                 </ng-template>
               </ion-modal>
 
-              <ion-modal #modal5 trigger="open-modal5">
-                <ng-template>
-                  <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal5.dismiss()">x</h1>
-                  <form [formGroup]="form"
-                    style=" margin-top: 40px !important; position: absolute; margin-left: auto;margin-right: auto;">
-                    <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Joindre le zip du
-                      solution</h1>
-                    <!-- <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
-                    <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div> -->
-                    <div style="display: flex;
-                     flex-direction: column; align-items: center;
-                    border: 1px solid #707070; margin-bottom: 2%; width: 85%;
-                    margin-left: auto; margin-right: auto; border-radius: 12px;">
-                      <input type="hidden" formControlName="lienGithub" class="form-control">
-                      <input type="hidden" formControlName="point" class="form-control">
-                      <input type="file" formControlName="source" class="form-control" (change)="uploadFile($event)"
-                        style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
-                    </div>
-                    <button type="submit" (click)="submit()" style="background-color: #3880FF; color: white;
-                         padding: 10px 20px; border: none;
-                         border-radius: 5px; width: 85%; margin-left: 6%;">Envoyer</button>
-                  </form>
-                </ng-template>
-              </ion-modal>
+
               <ion-modal #modal10 trigger="open-modal10">
                 <ng-template>
                   <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal10.dismiss()">x</h1>
@@ -218,9 +217,10 @@
                      flex-direction: column; align-items: center;
                     border: 1px solid #707070; margin-bottom: 2%; width: 85%;
                     margin-left: auto; margin-right: auto; border-radius: 12px;">
-                      <input type="hidden" formControlName="lienGithub" class="form-control">
+                      <input type="hidden" formControlName="lienGithub1" class="form-control">
                       <input type="hidden" formControlName="points" class="form-control">
-                      <input type="file" formControlName="source" class="form-control" (change)="uploadFileuser($event)"
+                      <input type="file" formControlName="source1" class="form-control"
+                        (change)="uploadFileuser($event)"
                         style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
                     </div>
                     <button type="submit" (click)="submit2()" style="background-color: #3880FF; color: white;
@@ -255,7 +255,7 @@
             </ion-grid>
           </ion-list>
           <ion-list *ngSwitchCase="'Forum'">
-            <button *ngIf="isLoggedIn"  class="button mon" id="open-modal1" style="margin-left: 50%;
+            <button *ngIf="isLoggedIn" class="button mon" id="open-modal1" style="margin-left: 50%;
             right: 0;z-index:99">Question <i class="fas fa-plus" style="color: white;"></i> &nbsp;&nbsp;</button>
             <ion-modal #modal trigger="open-modal1">
               <ng-template>
@@ -299,8 +299,15 @@
             </ion-grid>
           </ion-list>
           <ion-list *ngSwitchCase="'equipe'">
-            <div class="tous" style="margin-top: 2%;">
-
+            <button type="button"  class="btn btn1" *ngIf="isLoggedIn && etat=='Encours'"
+              style="font-size: 1.2em;margin-left: auto;margin-right: auto; margin-top: 2%; position: fixed;
+              left: 0;
+              right: 0;z-index:99 " id="open-modal5" expand="block">
+              &nbsp; Donner une solution <i class="fas fa-plus" style="color: white;"></i> &nbsp;
+            </button>
+            
+            <div class="tous" style="margin-top: 20%;">
+              
               <div class="mesquestions" *ngFor="let membre of afficherEquipeMembre1">
                 <div class="question">
                   <img src="{{membre.profile}}" alt="">
@@ -310,19 +317,40 @@
               </div>
               <h1 style="height: 20%;"></h1>
             </div>
-            <form action="formUser" (ngSubmit)=" submitEquipe()" >
-            <ion-list>
-
+            <form [formGroup]="formUser" (ngSubmit)=" submitEquipe1()">
               <ion-item>
                 <ion-label position="stacked">Sélectionnez les utilisateurs</ion-label>
-                <ion-select multiple="true" name="utilisate" formControlName="utilisate" *ngFor="let user of users">
-                  <ion-select-option [value]="user.id" >{{user.nom}}</ion-select-option>
+                <ion-select multiple="true" formControlName="utilisate" name="utilisate">
+                  <ion-select-option *ngFor="let user of users" value="{{user.id}}">{{user.nom}}</ion-select-option>
                 </ion-select>
               </ion-item>
+              <button>ajouter</button>
+            </form>
 
-            </ion-list>
-            <button>ajouter</button>
-          </form>
+            <ion-modal #modal5 trigger="open-modal5">
+              <ng-template>
+                <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal5.dismiss()">x</h1>
+                <form [formGroup]="form"
+                  style=" margin-top: 40px !important; position: absolute; margin-left: auto;margin-right: auto;">
+                  <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Joindre le zip du
+                    solution</h1>
+                  <!-- <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
+                  <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div> -->
+                  <div style="display: flex;
+                   flex-direction: column; align-items: center;
+                  border: 1px solid #707070; margin-bottom: 2%; width: 85%;
+                  margin-left: auto; margin-right: auto; border-radius: 12px;">
+                    <input type="hidden" formControlName="lienGithub" class="form-control">
+                    <input type="hidden" formControlName="point" class="form-control">
+                    <input type="file" formControlName="source" class="form-control" (change)="uploadFile($event)"
+                      style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
+                  </div>
+                  <button type="submit" (click)="submit()" style="background-color: #3880FF; color: white;
+                       padding: 10px 20px; border: none;
+                       border-radius: 5px; width: 85%; margin-left: 6%;">Envoyer</button>
+                </form>
+              </ng-template>
+            </ion-modal>
           </ion-list>
         </div>
       </div>

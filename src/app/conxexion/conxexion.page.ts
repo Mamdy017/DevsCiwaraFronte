@@ -41,7 +41,7 @@ export class ConxexionPage implements OnInit {
   }
 
   onSubmit(): void {
-    this.refreshPage();
+    // this.refreshPage();
     const { usernameOrEmail, password } = this.form;
 
     this.connexion.login(usernameOrEmail, password).subscribe({

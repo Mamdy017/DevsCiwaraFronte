@@ -13,7 +13,8 @@ export class InscriptionPage implements OnInit {
   form: any = {
     username: null,
     email: null,
-    password: null
+    password: null,
+    numero:null
   };
   InscriptionReussi = false;
   Inscriptionechoue = false;
@@ -27,9 +28,9 @@ export class InscriptionPage implements OnInit {
     this.modal.dismiss();
   }
   onSubmit(): void {
-    const { nom, prenom,username,email, password } = this.form;
+    const { nom, prenom,username,email, numero , password} = this.form;
 
-    this.inscription.inscription(nom, prenom,username,email, password).subscribe({
+    this.inscription.inscription(nom, prenom,username,email, numero , password).subscribe({
       next: data => {
         console.log(data);
         this.InscriptionReussi = true;

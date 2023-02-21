@@ -1,0 +1,62 @@
+
+<ion-content>
+
+  <section class="container forms" style="margin-top: 35vh !important;">
+    <div class="form login">
+      <div class="form-content">
+        <header>Inscription</header>
+        <form *ngIf="!InscriptionReussi" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate style="margin-bottom: 20vh;"
+        >
+          <div class="field input-field" style="margin-bottom: 8vh !important;">
+            <label for="email">Nom <b style="color:red">*</b> </label>
+            <input  type="text" [(ngModel)]="currentUser.nom" name="nom">
+           
+          </div>
+          <div class="field input-field" style="margin-bottom: 8vh !important;">
+            <label for="email">Prenom <b style="color:red">*</b> </label>
+            <input  type="text" [(ngModel)]="currentUser.prenom" name="prenom">
+           
+          </div>
+
+          <div class="field input-field" style="margin-bottom: 8vh !important;">
+            <label for="email">Pseudo <b style="color:red">*</b> </label>
+            <input  type="text" [(ngModel)]="currentUser.username" name="username">
+           
+          </div>
+          <div class="field input-field" style="margin-bottom: 8vh !important;">
+            <label for="email">Email <b style="color:red">*</b> </label>
+            <input  type="email" [(ngModel)]="currentUser.email" name="email">
+           
+          </div>
+          <div class="field input-field" style="margin-bottom: 8vh !important;">
+            <label for="email">Numero <b style="color:red">*</b> </label>
+            <input  type="text" [(ngModel)]="currentUser.numero" name="tel">
+           
+          </div>
+          <div class="field input-field" style="margin-bottom: 8vh !important;">
+            <label for="email">Photo <b style="color:red">*</b> </label>
+            <input  type="file" accept="image/*" [(ngModel)]="currentUser.profile" name="profile"
+            (change)="onFileChangePhoto($event)">
+          </div>
+
+        
+
+          <div class="form-link" style="margin-top:20%">
+          </div>
+
+          <div class="field button-field">
+            <button>S'inscrire</button>
+          </div>
+
+          
+
+        </form>
+       
+     
+      </div>
+
+     
+    </div>
+
+  </section>
+</ion-content>

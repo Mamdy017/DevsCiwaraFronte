@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { AvenirPage } from '../avenir/avenir.page';
 import { ConxexionPage } from '../conxexion/conxexion.page';
 import { InscriptionPage } from '../inscription/inscription.page';
+import { ProfilePage } from '../profile/profile.page';
 import { AfficherService } from '../Services/afficher.service';
 import { ConnexionService } from '../Services/connexion.service';
 import { StorageService } from '../Services/storage.service';
@@ -99,7 +100,12 @@ export class MenuPage {
     });
     return await modal.present();
   }
-
+  async openProfile() {
+    const modal = await this.modalCtrl.create({
+      component: ProfilePage
+    });
+    return await modal.present();
+  }
 
   closeModal() {
     this.modalCtrl.dismiss();
@@ -114,7 +120,6 @@ export class MenuPage {
 
   closeModal2() {
     this.modalCtrl.dismiss();
-
   }
 
   goToHome() {

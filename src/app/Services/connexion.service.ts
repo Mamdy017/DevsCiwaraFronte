@@ -26,20 +26,29 @@ export class ConnexionService {
     );
   }
 
-  inscription(nom: string, prenom: string, username:string,email:string, password: string): Observable<any> {
+  inscription(nom: string, prenom: string, username:string,email:string, numero :any, password: string): Observable<any> {
     return this.http.post(`http://localhost:8080/devs/auth/inscription`,
       {
         nom,
         prenom,
         username,
-        email,
+        email,numero ,
         password,
       },
       httpOptions
     );
   }
 
-
+  modifier(id:any, username: string, email: string, prenom:string,nom:string, numero: string, profile:File): Observable<any>{
+    let formData =new FormData
+    formData.append("username",username),
+    formData.append("email",email),
+    formData.append("prenom",prenom),
+    formData.append("nom",nom),
+    formData.append("numero",numero),
+    formData.append("profile",profile)
+    return this.http.put(`http://localhost:8080/devs/auth/utilisateur/modifier/${id}`,formData)
+  }
 
   newPassword(nouveau:any):Observable<any> {
     return this.http.post(`http://localhost:8080/devs/auth/utilisateur/changePassword/`,nouveau);

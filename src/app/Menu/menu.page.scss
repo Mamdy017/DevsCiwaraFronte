@@ -366,9 +366,9 @@ body {
   transition: transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 .card .banner .moi img{
-  margin-top: 10% ;
-  width: 75%;
-  height: 75%;
+  margin-top: 15% ;
+  width: 74%;
+  height: 72%;
   
 }
 .card .banner .moi:hover {
@@ -477,6 +477,19 @@ body {
   outline: none;
   box-sizing: border-box;
   border-radius: 1.5rem/50%;
+  transition: background-color 100ms ease-in-out, transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.banner {
+  color: white;
+  font: inherit;
+  font-weight: bold;
+  background-color: #3880FF;
+  width: 100%;
+
+  border: none;
+  padding: 1rem;
+  outline: none;
+  box-sizing: border-box;
   transition: background-color 100ms ease-in-out, transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 .card .actions .follow-btn button:hover {
