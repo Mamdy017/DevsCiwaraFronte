@@ -22,13 +22,13 @@ export class AjouterServiceService {
 
   dislike(questionid: any,): Observable<any> {
     let data = new FormData()
-    data.append("questionid",questionid) 
+    data.append("questionid",questionid)
     return this.http.post(`http://localhost:8080/devs/auth/commentaire/incrementType2/`,data);
   }
 
   like(questionid: any,): Observable<any> {
     let data = new FormData()
-    data.append("questionid",questionid) 
+    data.append("questionid",questionid)
     return this.http.post(`http://localhost:8080/devs/auth/commentaire/incrementType1/`, data);
   }
 
@@ -37,6 +37,10 @@ export class AjouterServiceService {
   ajouterSolution(idChallenge1: number, idTeam: number, iduser1: number, formData: FormData): Observable<any> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`http://localhost:8080/devs/auth/solution/ajout/${idChallenge1}/${idTeam}/${iduser1}`, formData);
+  }
+  ajouterSolutionUsers(idChallenge1: number, iduser1: number, formData: FormData): Observable<any> {
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`http://localhost:8080/devs/auth/solution/ajout/${idChallenge1}/${iduser1}`, formData);
   }
 
   addTeamUsersToTeamForChallenge(userIds: number[], id: number, challengeId: number) {

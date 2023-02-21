@@ -55,6 +55,10 @@ export class DetailsChallengePage implements OnInit {
   allQuestion: any;
   voirQuestionParChallenge: any;
   etat: any;
+  form !: FormGroup
+
+  form1 !: FormGroup
+
 
 
 
@@ -70,7 +74,6 @@ export class DetailsChallengePage implements OnInit {
     private storage: StorageService, private http: HttpClient,
     private fb: FormBuilder
   ) { }
-  form !: FormGroup
 
 
   ngOnInit() {
@@ -105,6 +108,12 @@ export class DetailsChallengePage implements OnInit {
       fileSource: new FormControl('', [Validators.required])
     });
 
+    this.form1 = new FormGroup({
+      lienGithub: new FormControl('', Validators.required),
+      point: new FormControl('', Validators.required),
+      source: new FormControl('', Validators.required),
+      fileSource: new FormControl('', [Validators.required])
+    });
 
 
     this.currentUser = this.storage.recupererUser();
@@ -270,16 +279,20 @@ export class DetailsChallengePage implements OnInit {
 
   }
 
-  uploadFilec(files: FileList) {
-    this.form.value.source.setValue(files.item(0));
-  }
+
   uploadFile(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-
       this.form.patchValue({
         fileSource: file
-
+      });
+    }
+  }
+  uploadFileuser(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.form1.patchValue({
+        fileSource: file
       });
     }
   }
@@ -289,7 +302,7 @@ export class DetailsChallengePage implements OnInit {
     const formData = new FormData();
     formData.append('lienGithub', this.form.value.lienGithub);
     formData.append('source', this.form.value.fileSource, this.form.value.fileSource.name);
-    formData.append('point', this.form.value.point);
+    // formData.append('point', this.form.value.point);
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: '',
@@ -338,6 +351,61 @@ export class DetailsChallengePage implements OnInit {
 
 
   }
+
+  submit2() {
+    const formData = new FormData();
+    formData.append('lienGithub', this.form1.value.lienGithub);
+    formData.append('source', this.form1.value.fileSource, this.form1.value.fileSource.name);
+    // formData.append('point', this.form.value.point);
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: '',
+        cancelButton: ''
+      },
+      heightAuto: false
+
+    })
+    swalWithBootstrapButtons.fire({
+      title: "<h1 style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Êtes vous sur de vouloir ajouter la solution?</h1>",
+      showCancelButton: true,
+      confirmButtonText: '<span style="font-size:.9em">Confirmer</span>',
+      cancelButtonText: `<span style="font-size:.9em"> Annuler</span>`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceAjouter.ajouterSolutionUsers(this.idChallenge1, this.iduser1, formData).subscribe(data => {
+          this.errorMessage = data.message;
+          this.status = data.status;
+
+          if (this.status == true) {
+
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
+            )
+            this.form.reset();
+          } else if (this.status == false) {
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; color:red'>${this.errorMessage}.</h1>`,
+            )
+          }
+          // this.equipe.reset();
+        });
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          '',
+          "<h1 style='font-size:.9em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Opération annulée</h1>",
+          'error'
+        )
+      }
+    })
+
+
+
+  }
+
   isChallengeInProgress(startDate: string): boolean {
     const challengeStartDate = new Date(startDate.split('T')[0]);
     const currentDate = new Date();
