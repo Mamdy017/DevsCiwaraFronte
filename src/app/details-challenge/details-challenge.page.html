@@ -310,6 +310,19 @@
               </div>
               <h1 style="height: 20%;"></h1>
             </div>
+            <form action="formUser" (ngSubmit)=" submitEquipe()" >
+            <ion-list>
+
+              <ion-item>
+                <ion-label position="stacked">Sélectionnez les utilisateurs</ion-label>
+                <ion-select multiple="true" name="utilisate" formControlName="utilisate" *ngFor="let user of users">
+                  <ion-select-option [value]="user.id" >{{user.nom}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+            </ion-list>
+            <button>ajouter</button>
+          </form>
           </ion-list>
         </div>
       </div>

@@ -413,6 +413,7 @@ export class DetailsChallengePage implements OnInit {
   }
   submitEquipe() {
     var userIds = this.formUser.value.utilisate;
+    alert(userIds)
     this.serviceAjouter.addTeamUsersToTeamForChallenge(userIds, this.idTeam, this.idChallenge1)
       .subscribe(res => {
         console.log(res);
