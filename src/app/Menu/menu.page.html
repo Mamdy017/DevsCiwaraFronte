@@ -47,8 +47,10 @@
 <div class="ion-page" id="main-content" color="tertiary">
   <ion-header>
     <ion-toolbar color="white">
-      <ion-buttons slot="start">
-        <ion-menu-button class="men"><ion-icon name="person-circle"></ion-icon></ion-menu-button>
+      <ion-buttons slot="start"> 
+        <ion-menu-button *ngIf="!isLoggedIn" class="men"><ion-icon  name="person-circle"></ion-icon></ion-menu-button>
+        <ion-menu-button *ngIf="isLoggedIn" class="men"><img src="{{currentUser.profile}}" alt=""></ion-menu-button>
+
         <img src="../../assets/lol.png" class="logo logo2" alt="">
       </ion-buttons>
       <div class="row Rechercher">

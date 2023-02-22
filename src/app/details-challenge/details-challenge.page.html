@@ -173,6 +173,31 @@
                   </ion-segment-button>
                 </ion-segment>
               </div>
+              <ion-modal #modal10 trigger="open-modal10">
+                <ng-template>
+                  <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal10.dismiss()">x</h1>
+                  <form [formGroup]="form1"
+                    style=" margin-top: 40px !important; position: absolute; margin-left: auto;margin-right: auto;">
+                    <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Joindre le zip du
+                      solution2</h1>
+                    <!-- <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
+                    <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div> -->
+                    <div style="display: flex;
+                     flex-direction: column; align-items: center;
+                    border: 1px solid #707070; margin-bottom: 2%; width: 85%;
+                    margin-left: auto; margin-right: auto; border-radius: 12px;">
+                      <input type="hidden" formControlName="lienGithub1" class="form-control">
+                      <input type="hidden" formControlName="points" class="form-control">
+                      <input type="file" formControlName="source1" class="form-control"
+                        (change)="uploadFileuser($event)"accept="application/zip, .zip"  maxlength="3145728"
+                        style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
+                    </div>
+                    <button type="submit" (click)="submit2()" style="background-color: #3880FF; color: white;
+                         padding: 10px 20px; border: none;
+                         border-radius: 5px; width: 85%; margin-left: 6%;">Envoyer</button>
+                  </form>
+                </ng-template>
+              </ion-modal> 
               <style>
                 .purchase-info {
                   display: flex;
@@ -204,34 +229,10 @@
               </ion-modal>
 
 
-              <ion-modal #modal10 trigger="open-modal10">
-                <ng-template>
-                  <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal10.dismiss()">x</h1>
-                  <form [formGroup]="form1"
-                    style=" margin-top: 40px !important; position: absolute; margin-left: auto;margin-right: auto;">
-                    <h1 style="font-size: 1.2em; margin-bottom: 3%; margin-left: 5% !important;">Joindre le zip du
-                      solution2</h1>
-                    <!-- <div *ngIf="status==false" style="color: red; padding: 2%;">{{ errorMessage }}</div>
-                    <div *ngIf="status==true" style="color: blue; padding: 2%;">{{ errorMessage }}</div> -->
-                    <div style="display: flex;
-                     flex-direction: column; align-items: center;
-                    border: 1px solid #707070; margin-bottom: 2%; width: 85%;
-                    margin-left: auto; margin-right: auto; border-radius: 12px;">
-                      <input type="hidden" formControlName="lienGithub1" class="form-control">
-                      <input type="hidden" formControlName="points" class="form-control">
-                      <input type="file" formControlName="source1" class="form-control"
-                        (change)="uploadFileuser($event)"
-                        style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
-                    </div>
-                    <button type="submit" (click)="submit2()" style="background-color: #3880FF; color: white;
-                         padding: 10px 20px; border: none;
-                         border-radius: 5px; width: 85%; margin-left: 6%;">Envoyer</button>
-                  </form>
-                </ng-template>
-              </ion-modal>
+           
               <div class="social-links">
                 <i class="fas fa-calendar"></i>
-                <p>&nbsp;Du:&nbsp; </p>
+                <p>&nbsp;Du:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; </p>
                 <span>{{datedebut | date: 'dd/MM/yyyy'}}</span>
               </div>
               <div class="social-links">
@@ -246,7 +247,8 @@
               <div class="monLabel" *ngFor="let rang of classement let i = index">
                 <div class="social-media" style="display: flex;justify-content: space-around;">
                   <b>{{i+1}}</b>
-                  <span>{{rang.team.nom}}</span>
+                  <span *ngIf="rang.team" >{{rang.team.nom}}</span>
+                  <span *ngIf="rang.utilisateurs" >{{rang.utilisateurs.nom}}</span>
                   <span>Code</span>
                   <a href="{{rang.source}}" download=""><i class="bi bi-cloud-arrow-down-fill"
                       style="color: #3880FF;"></i></a>
@@ -292,7 +294,8 @@
               <div class="monLabel" *ngFor="let rang of classement let i = index">
                 <div class="social-media" style="display: flex;justify-content: space-around;">
                   <a href="#">{{i+1}}</a>
-                  <span>{{rang.team.nom}}</span>
+                  <span *ngIf="rang.team" >{{rang.team.nom}}</span>
+                  <span *ngIf="rang.utilisateurs" >{{rang.utilisateurs.nom}}</span>
                   <span>{{rang.total}} p</span>
                 </div>
               </div>
@@ -342,7 +345,7 @@
                   margin-left: auto; margin-right: auto; border-radius: 12px;">
                     <input type="hidden" formControlName="lienGithub" class="form-control">
                     <input type="hidden" formControlName="point" class="form-control">
-                    <input type="file" formControlName="source" class="form-control" (change)="uploadFile($event)"
+                    <input type="file" formControlName="source" accept=".zip, application/zip"  class="form-control" (change)="uploadFile($event)"
                       style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
                   </div>
                   <button type="submit" (click)="submit()" style="background-color: #3880FF; color: white;

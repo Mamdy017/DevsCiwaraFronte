@@ -136,7 +136,6 @@ export class DetailsChallengePage implements OnInit {
       this.photo = data.photo;
       this.datedebut = data.datedebut;
 
-      console.log("mes donnnnnnesnsnsnns", JSON.stringify(data))
 
     });
     this.serviceAfficher.afficherCritereParIdChallenge(this.idChallenge1).subscribe(data => {
@@ -151,6 +150,7 @@ export class DetailsChallengePage implements OnInit {
       this.afficherEquipeParUtilisateur = data;
       var idTeam1 = this.afficherEquipeParUtilisateur[0].id;
       this.idTeam = this.afficherEquipeParUtilisateur[0].id;
+      
       this.serviceAfficher.afficherEquipeMembre(this.idChallenge1, idTeam1).subscribe(data => {
         this.afficherEquipeMembre1 = data;
       });
@@ -412,7 +412,6 @@ export class DetailsChallengePage implements OnInit {
   }
   submitEquipe1() {
     var userIds = this.formUser.value.utilisate;
-    alert(userIds)
     this.serviceAjouter.addTeamUsersToTeamForChallenge(userIds, this.idTeam, this.idChallenge1)
       .subscribe(res => {
         console.log(res);
