@@ -83,7 +83,7 @@ export class ConxexionPage implements OnInit {
             this.roles = this.storage.recupererUser().roles;
 
             // alert("hello")
-            // this.refreshPage();
+            this.refreshPage();
             this.router.navigateByUrl("/menu/accueil");
             this.modalCtrl.dismiss();
           }

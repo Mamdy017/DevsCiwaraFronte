@@ -146,9 +146,9 @@
 
      
     </div>
-    <h2 class="name">Les derniers challenges</h2>
-    <main class="card1" style="margin-bottom: 15vh !important;">
-      <article *ngFor="let chal of challenge">
+    <main class="card1" style="margin-bottom: 15vh !important; margin-top: -10%;">
+      <h3 class="name" style="margin-left: auto; margin-right: auto; color: #3880FF; font-weight: bold;">Les derniers challenges</h3>
+      <article *ngFor="let chal of challenge" style="margin-top: -10%;">
         <img class="img" src="{{chal.photo}}">
         <div class="text">
           <h3>{{chal.titre}}</h3>
