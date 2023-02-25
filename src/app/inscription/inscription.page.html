@@ -1,9 +1,12 @@
 
 <ion-content>
 
-  <section class="container forms" style="margin-top: 35vh !important;">
+  <section class="container forms" style="margin-top: 45vh !important; margin-bottom: 10vh;">
     <div class="form login">
+      <h1>&nbsp; &nbsp; &nbsp;<img src="../../assets/lol.png" alt=""></h1>
+  
       <div class="form-content">
+        
         <header>Inscription</header>
         <form id="stripe-login" *ngIf="!InscriptionReussi" name="form" (ngSubmit)="f.form.valid && onSubmit()"
           #f="ngForm" novalidate>
