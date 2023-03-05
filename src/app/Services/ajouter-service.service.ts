@@ -46,7 +46,7 @@ export class AjouterServiceService {
     return this.http.post<any>(`${this.AUTH_API}/solution/ajout2/${idChallenge1}/${iduser1}`, formData);
   }
 
-  addTeamUsersToTeamForChallenge(userIds: number[], id: number, challengeId: number) {
+  addTeamUsersToTeamForChallenge(userIds: number[], id: number, challengeId: number):Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });

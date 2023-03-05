@@ -150,9 +150,10 @@ export class DetailsChallengePage implements OnInit {
       this.afficherEquipeParUtilisateur = data;
       var idTeam1 = this.afficherEquipeParUtilisateur[0].id;
       this.idTeam = this.afficherEquipeParUtilisateur[0].id;
-      
+alert(this.idTeam);
       this.serviceAfficher.afficherEquipeMembre(this.idChallenge1, idTeam1).subscribe(data => {
         this.afficherEquipeMembre1 = data;
+        console.log("============",JSON.stringify(this.afficherEquipeMembre1))
       });
     });
 
@@ -166,7 +167,7 @@ export class DetailsChallengePage implements OnInit {
     this.question = new FormGroup({
       question: new FormControl('', Validators.required),
     });
-   
+
 
     this.currentUser = this.storage.recupererUser();
     this.iduser1 = this.currentUser.id;
@@ -405,17 +406,62 @@ export class DetailsChallengePage implements OnInit {
 
   }
 
-  isChallengeInProgress(startDate: string): boolean {
-    const challengeStartDate = new Date(startDate.split('T')[0]);
-    const currentDate = new Date();
-    return challengeStartDate <= currentDate;
-  }
+  // isChallengeInProgress(startDate: string): boolean {
+  //   const challengeStartDate = new Date(startDate.split('T')[0]);
+  //   const currentDate = new Date();
+  //   return challengeStartDate <= currentDate;
+  // }
   submitEquipe1() {
     var userIds = this.formUser.value.utilisate;
-    this.serviceAjouter.addTeamUsersToTeamForChallenge(userIds, this.idTeam, this.idChallenge1)
-      .subscribe(res => {
-        console.log(res);
-      });
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: '',
+        cancelButton: ''
+      },
+      heightAuto: false
+
+    })
+    swalWithBootstrapButtons.fire({
+      title: "<h1 style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Êtes vous sur de vouloir ajouter ces personnes à votre équipe?</h1>",
+      showCancelButton: true,
+      confirmButtonText: '<span style="font-size:.9em">Confirmer</span>',
+      cancelButtonText: `<span style="font-size:.9em"> Annuler</span>`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceAjouter.addTeamUsersToTeamForChallenge(userIds, this.idTeam, this.idChallenge1)
+        .subscribe(data => {
+          this.errorMessage = data.message;
+          this.status = data.status;
+
+          if (this.status == true) {
+
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
+            )
+            this.form.reset();
+          } else if (this.status == false) {
+            swalWithBootstrapButtons.fire(
+              `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; color:red'>${this.errorMessage}.</h1>`,
+            )
+          }
+          // this.equipe.reset();
+        });
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          '',
+          "<h1 style='font-size:.9em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Opération annulée</h1>",
+          'error'
+        )
+      }
+    })
+    // this.serviceAjouter.addTeamUsersToTeamForChallenge(userIds, this.idTeam, this.idChallenge1)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //   });
   }
 
   segmentChanged(ev: any) {
