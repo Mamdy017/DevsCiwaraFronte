@@ -1,0 +1,48 @@
+<ion-content>
+  <div class="card-wrapper" style="margin-bottom: 10vh; margin-top: 15vh;">
+    <div class="card">
+      <!-- card left -->
+
+      <div class="tous" style="margin-top: 2%;">
+
+        <hr style="height: 2px; background-color: #707070;">
+        <div class="wrapper2">
+          <h2 style="color: #4671EA; font-weight: bold;">Le forum</h2>
+
+        </div>
+        <h1 style="height: 2px;"></h1>
+      </div>
+      <style>
+
+
+        .essaie::-webkit-scrollbar {
+          display: none;
+        }
+      </style>
+      <section class="main ">
+        <div class="full-boxer essaie">
+          <div class="comment-box" *ngFor="let commentaireA of voirQuestionParChallenge "  [routerLink]="['/menu/encours',commentaireA.id]" style="cursor: pointer;">
+            <div class="box-top">
+              <div class="Profile">
+                <div class="profile-image">
+                  <img src="{{commentaireA.utilisateurs.profile}}">
+                </div>
+                <div class="Name">
+                  <span>{{commentaireA.utilisateurs.nom}} {{commentaireA.utilisateurs.prenom}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="comment">
+              <p style=" margin-bottom:1% ;">
+                {{commentaireA.question}} <br> <br>  <span style="color: #4671EA;" >challenge: {{commentaireA.challenge.titre}}</span>
+              </p>
+            </div>
+          </div>
+
+
+
+        </div>
+      </section>
+    </div>
+  </div>
+</ion-content>

@@ -123,7 +123,6 @@ export class DetailsChallengePage implements OnInit {
 
     this.serviceAfficher.VoirquestionParChallenge(this.idChallenge1).subscribe(data=>{
       this.voirQuestionParChallenge=data;
-      console.log("toutes les questions par id",this.voirQuestionParChallenge)
     })
     this.serviceAfficher.afficherParIdChallenge(this.idChallenge1).subscribe(data => {
       this.idChallenge = data;

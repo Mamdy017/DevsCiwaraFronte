@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('../Accueil/accueil.module').then(m => m.AccueilPageModule)
       },
       {
+        path: 'forum',
+        loadChildren: () => import('../forum/forum.module').then(m => m.ForumPageModule)
+      },
+      {
         path: 'terminer',
         loadChildren: () => import('../Terminer/terminer.module').then(m => m.TerminerPageModule)
       },

@@ -34,7 +34,7 @@ export class EncoursPage implements OnInit {
   ngOnInit() {
 
     this.id = this.routes.snapshot.params['id'];
-    
+
     this.recupererCommontaire()
 
     console.log("mon id",this.id)
@@ -47,11 +47,11 @@ export class EncoursPage implements OnInit {
       this.question = data;
       console.table("mes encours questions par id ",this.question);
     });
-   
+
     this.commentaire = new FormGroup({
       description: new FormControl('', Validators.required),
     });
-    
+
   }
 
 
@@ -62,6 +62,7 @@ export class EncoursPage implements OnInit {
     this.serviceAjouter.AjouterCommentaire(creatorId,id,desc).subscribe(data => {
       this.errorMessage = data.message;
       this.status = data.status;
+    this.commentaire.reset()
   })
 }
 
