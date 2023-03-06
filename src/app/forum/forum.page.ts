@@ -39,11 +39,8 @@ export class ForumPage implements OnInit {
 
 
 
-    console.log("mon id",this.id)
     this.currentUser = this.storage.recupererUser();
-    console.table(this.currentUser);
     this.moi = this.currentUser.id;
-    // console.log("je suis id user dans equipe confirmations" + this.moi);
 
     this.serviceAfficher.Voirqquestion().subscribe(data=>{
       this.voirQuestionParChallenge=data;

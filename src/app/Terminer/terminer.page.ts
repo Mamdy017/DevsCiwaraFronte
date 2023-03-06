@@ -13,7 +13,6 @@ export class TerminerPage {
   ngOnInit() {
     this.serviceAfficher.afficherChallengeTerminer().subscribe(data => {
       this.challenge = data;
-      console.table(this.challenge);
     });
   }
 }

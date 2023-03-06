@@ -47,7 +47,6 @@ export class ChallengePage implements OnInit {
   //   }
 }
 segmentChanged(ev: any) {
-  console.log('Segment changed', ev);
 }
 
 }

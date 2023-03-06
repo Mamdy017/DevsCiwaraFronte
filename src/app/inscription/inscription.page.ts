@@ -32,7 +32,6 @@ export class InscriptionPage implements OnInit {
 
     this.inscription.inscription(nom, prenom,username,email, numero , password).subscribe({
       next: data => {
-        console.log(data);
         this.InscriptionReussi = true;
         this.Inscriptionechoue = false;
       },

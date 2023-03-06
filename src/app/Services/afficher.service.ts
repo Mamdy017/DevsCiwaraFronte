@@ -14,7 +14,8 @@ import { environment } from 'src/environments/environment';
 })
 export class AfficherService {
   AUTH_API = 'http://localhost:8080/devs/auth'
-  // recupeId(id: number):Observable<any> {
+  // AUTH_API = 'http://192.168.242.234'
+µ // recupeId(id: number):Observable<any> {
   //   return  this.http.get(`${this.AUTH_API}/teamusrs/teamUserId/${id}`)
   // }
 

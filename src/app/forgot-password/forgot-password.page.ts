@@ -31,7 +31,6 @@ export class ForgotPasswordPage implements OnInit {
 
     this.inscription.forGotPassword(email).subscribe({
       next: data => {
-        console.log(data);
         this.InscriptionReussi = true;
         this.Inscriptionechoue = false;
       },

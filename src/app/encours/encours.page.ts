@@ -37,15 +37,11 @@ export class EncoursPage implements OnInit {
 
     this.recupererCommontaire()
 
-    console.log("mon id",this.id)
     this.currentUser = this.storage.recupererUser();
-    console.table(this.currentUser);
     this.moi = this.currentUser.id;
-    // console.log("je suis id user dans equipe confirmations" + this.moi);
 
     this.serviceAfficher.VoirquestionParId(this.id).subscribe(data => {
       this.question = data;
-      console.table("mes encours questions par id ",this.question);
     });
 
     this.commentaire = new FormGroup({
@@ -63,6 +59,8 @@ export class EncoursPage implements OnInit {
       this.errorMessage = data.message;
       this.status = data.status;
     this.commentaire.reset()
+    location.reload()
+
   })
 }
 
@@ -72,26 +70,23 @@ export class EncoursPage implements OnInit {
 recupererCommontaire(){
   this.serviceAfficher.VoirCommentaireParId(this.id).subscribe(data=>{
     this.commentaireParIdQuestion=data;
-    console.table("mes encours questions commentaire par id ",this.commentaireParIdQuestion);
   })
 }
 disliker(idcomment:any){
   const{questionid} = this.form;
-  alert("Je suis cliquer "+idcomment)
   this.serviceAjouter.dislike(idcomment).subscribe(data => {
     this.errorMessage = data.message;
     this.status = data.status;
+    location.reload()
 })
-  location.reload()
 }
 
 liker(idcomment:any){
   const{questionid} = this.form1;
-  alert("Je suis cliquer "+idcomment)
   this.serviceAjouter.like(idcomment).subscribe(data => {
     this.errorMessage = data.message;
     this.status = data.status;
+    location.reload()
 })
-  location.reload()
 }
 }

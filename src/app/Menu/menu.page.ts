@@ -49,15 +49,12 @@ export class MenuPage {
       this.roles = this.storage.recupererUser().roles;
     }
     this.currentUser = this.storage.recupererUser();
-    console.table(this.currentUser);
     var moi = this.currentUser.id;
-    console.log("je suis id user" + moi);
 
     this.isLoggedIn = this.storage.connexionReussi();
 
     this.ServiceAfficher.VoirDemande(moi).subscribe(data =>{
       this.voirDemande=data;
-      console.log("mes demandes",this.voirDemande);
       this.total=this.voirDemande.length;
     })
 
@@ -84,12 +81,10 @@ export class MenuPage {
   logout(): void {
     this.connexion.logout().subscribe({
       next: res => {
-        console.log(res);
         this.storage.clean();
         window.location.reload();
       },
       error: err => {
-        console.log(err);
       }
     });
   }
@@ -129,9 +124,7 @@ export class MenuPage {
   recupeId(id:number){
     this.ServiceAfficher.recupeId(id).subscribe(data=>{
       this.teamParId=data;
-      console.log("mes par id",this.teamParId);
     })
-    console.log("mon id",id);
     this.router.navigate(['/menu/avenir',id]);
   }
 }

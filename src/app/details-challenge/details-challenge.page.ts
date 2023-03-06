@@ -87,7 +87,6 @@ export class DetailsChallengePage implements OnInit {
     })
     this.serviceAfficher.Voirqquestion().subscribe(data =>{
       this.allQuestion=data;
-      console.log("toutes les questions",this.allQuestion)
     })
 
 
@@ -130,7 +129,6 @@ export class DetailsChallengePage implements OnInit {
       this.description = data.description;
       this.datefin = data.datefin;
       this.etat=data.etat;
-      console.log("mes etat",this.etat)
       this.cate = data.cate[0].nom;
       this.photo = data.photo;
       this.datedebut = data.datedebut;
@@ -149,10 +147,8 @@ export class DetailsChallengePage implements OnInit {
       this.afficherEquipeParUtilisateur = data;
       var idTeam1 = this.afficherEquipeParUtilisateur[0].id;
       this.idTeam = this.afficherEquipeParUtilisateur[0].id;
-alert(this.idTeam);
       this.serviceAfficher.afficherEquipeMembre(this.idChallenge1, idTeam1).subscribe(data => {
         this.afficherEquipeMembre1 = data;
-        console.log("============",JSON.stringify(this.afficherEquipeMembre1))
       });
     });
 
@@ -457,10 +453,7 @@ alert(this.idTeam);
         )
       }
     })
-    // this.serviceAjouter.addTeamUsersToTeamForChallenge(userIds, this.idTeam, this.idChallenge1)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //   });
+
   }
 
   segmentChanged(ev: any) {

@@ -37,14 +37,7 @@ export class AvenirPage {
 
 
     this.currentUser = this.storage.recupererUser();
-    console.table(this.currentUser);
     this.moi = this.currentUser.id;
-    console.log("je suis id user dans equipe confirmations" + this.moi);
-
-
-
-
-
     this.id = this.routes.snapshot.params['id'];
     this.serviceAfficher.recupeId(this.id).subscribe(data => {
       this.teamParId = data;
@@ -55,7 +48,6 @@ export class AvenirPage {
       this.debut = this.teamParId.challenge.datedebut;
       this.fin = this.teamParId.challenge.datefin;
       this.idChallenge = this.teamParId.challenge.id;
-      console.log("mes par id", this.teamParId.challenge.datefin);
       this.isLoading = false;
     })
   }
@@ -91,17 +83,10 @@ export class AvenirPage {
         })
       }
     })
-    // console.log("je suis id user dans caonfirmer confirmations" + this.moi , "et team ",this.id , "et challenge",this.idChallenge);
 
   }
 
-  // confirmer(){
-  //   console.log("je suis id user dans caonfirmer confirmations" + this.moi , "et team ",this.id , "et challenge",this.idChallenge);
-  //   this.serviceAjouter.confirmeré().subscribe(data =>{
-  //     this.donnees=data;
-  //     console.log("mes donnees",this.donnees);
-  //   })
-  // }
+
 
 
 }
