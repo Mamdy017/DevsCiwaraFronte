@@ -74,6 +74,7 @@ export class ProfilePage implements OnInit {
             swalWithBootstrapButtons.fire(
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
             )
+            location.reload()
             // this.refreshPage()
           } else if (this.status == false) {
             swalWithBootstrapButtons.fire(

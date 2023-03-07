@@ -150,22 +150,23 @@
                   &nbsp;&nbsp; Équipe <i class="fas fa-plus" style="color: white;"></i> &nbsp;&nbsp;
                 </button>
                 <button *ngIf="isLoggedIn && etat=='Encours' && showSolutionButton" type="button" class="btn"
-                  style="font-size: 1.2em;margin-left: auto;margin-right: auto; color: #707070; background-color: #F4F5F8;" id="show-solution"
-                  (click)="showSolutionButton = false;" expand="block">
+                  style="font-size: 1.2em;margin-left: auto;margin-right: auto; color: #707070; background-color: #F4F5F8;"
+                  id="show-solution" (click)="showSolutionButton = false;" expand="block">
                   Solution individuel
                 </button>
                 <button *ngIf="isLoggedIn && etat=='Encours' && !showSolutionButton" type="button" class="btn"
-                  style="font-size: 1.2em;margin-left: auto;margin-right: auto; color: #3880FF;background-color: #F4F5F8;" id="show-solution"
-                  (click)="showSolutionButton = true;" expand="block">
+                  style="font-size: 1.2em;margin-left: auto;margin-right: auto; color: #3880FF;background-color: #F4F5F8;"
+                  id="show-solution" (click)="showSolutionButton = true;" expand="block">
                   Solution par équipe
                 </button>
                 <button *ngIf="isLoggedIn && etat=='Encours' && !showSolutionButton" type="button" class="btn"
                   style="font-size: 1.2em;margin-left: auto;margin-right: auto;" id="open-modal10" expand="block">
                   &nbsp; Individuel <i class="fas fa-plus" style="color: white;"></i> &nbsp;
                 </button>
-                <ion-segment style="width: 200%;" *ngIf="isLoggedIn && etat=='Encours' && showSolutionButton" [(ngModel)]="type"
-                  (ionChange)="segmentChanged($event)" scrollable>
-                  <ion-segment-button style=" background-color:white !important; width: 100%;" *ngIf="isLoggedIn" value="equipe">
+                <ion-segment style="width: 200%;" *ngIf="isLoggedIn && etat=='Encours' && showSolutionButton"
+                  [(ngModel)]="type" (ionChange)="segmentChanged($event)" scrollable>
+                  <ion-segment-button style=" background-color:white !important; width: 100%;" *ngIf="isLoggedIn"
+                    value="equipe">
                     <button type="button" class="btn" style="font-size: 1.2em;margin-left: auto;margin-right: auto;"
                       id="open-modal5" expand="block">
                       &nbsp; Par équipe <i class="fas fa-plus" style="color: white;"></i> &nbsp;
@@ -189,7 +190,7 @@
                       <input type="hidden" formControlName="lienGithub1" class="form-control">
                       <input type="hidden" formControlName="points" class="form-control">
                       <input type="file" formControlName="source1" class="form-control"
-                        (change)="uploadFileuser($event)"accept="application/zip, .zip"  maxlength="3145728"
+                        (change)="uploadFileuser($event)" accept="application/zip, .zip" maxlength="3145728"
                         style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
                     </div>
                     <button type="submit" (click)="submit2()" style="background-color: #3880FF; color: white;
@@ -247,8 +248,8 @@
               <div class="monLabel" *ngFor="let rang of classement let i = index">
                 <div class="social-media" style="display: flex;justify-content: space-around;">
                   <b>{{i+1}}</b>
-                  <span *ngIf="rang.team" >{{rang.team.nom}}</span>
-                  <span *ngIf="rang.utilisateurs" >{{rang.utilisateurs.nom}}</span>
+                  <span *ngIf="rang.team">{{rang.team.nom}}</span>
+                  <span *ngIf="rang.utilisateurs">{{rang.utilisateurs.nom}}</span>
                   <span>Code</span>
                   <a href="{{rang.source}}" download=""><i class="bi bi-cloud-arrow-down-fill"
                       style="color: #3880FF;"></i></a>
@@ -294,16 +295,15 @@
               <div class="monLabel" *ngFor="let rang of classement let i = index">
                 <div class="social-media" style="display: flex;justify-content: space-around;">
                   <a href="#">{{i+1}}</a>
-                  <span *ngIf="rang.team" >{{rang.team.nom}}</span>
-                  <span *ngIf="rang.utilisateurs" >{{rang.utilisateurs.nom}}</span>
+                  <span *ngIf="rang.team">{{rang.team.nom}}</span>
+                  <span *ngIf="rang.utilisateurs">{{rang.utilisateurs.nom}}</span>
                   <span>{{rang.total}} p</span>
                 </div>
               </div>
             </ion-grid>
           </ion-list>
           <ion-list *ngSwitchCase="'equipe'">
-            <button type="button"  class="btn btn1" *ngIf="isLoggedIn && etat=='Encours' && idTeam" 
-              style="font-size: 1.2em;margin-left: auto;margin-right: auto; margin-top: 2%; position: fixed;
+            <button type="button" class="btn btn1" *ngIf="isLoggedIn && etat=='Encours' && idTeam" style="font-size: 1.2em;margin-left: auto;margin-right: auto; margin-top: 2%; position: fixed;
               left: 0;
               right: 0;z-index:99 " id="open-modal5" expand="block">
               &nbsp; Donner une solution <i class="fas fa-plus" style="color: white;"></i> &nbsp;
@@ -326,9 +326,10 @@
                   <ion-select-option *ngFor="let user of users" value="{{user.id}}">{{user.nom}}</ion-select-option>
                 </ion-select>
               </ion-item>
-              <button>ajouter</button>
+              <button style="background-color: #3880FF; color: white;
+              padding: 10px 20px; border: none;
+              border-radius: 5px; width: 85%; margin-left: 6%; margin-top: 2%;">ajouter</button>
             </form>
-
             <ion-modal #modal5 trigger="open-modal5">
               <ng-template>
                 <h1 slot="end" style="margin-left: 90%; cursor: pointer;" (click)="modal5.dismiss()">x</h1>
@@ -344,7 +345,8 @@
                   margin-left: auto; margin-right: auto; border-radius: 12px;">
                     <input type="hidden" formControlName="lienGithub" class="form-control">
                     <input type="hidden" formControlName="point" class="form-control">
-                    <input type="file" formControlName="source" accept=".zip, application/zip"  class="form-control" (change)="uploadFile($event)"
+                    <input type="file" formControlName="source" accept=".zip, application/zip" class="form-control"
+                      (change)="uploadFile($event)"
                       style="margin-bottom: 1%; width: 90%; padding: 10px; font-size: 20px; border-radius: 5px;">
                   </div>
                   <button type="submit" (click)="submit()" style="background-color: #3880FF; color: white;

@@ -73,17 +73,25 @@
               <div class="" style="margin-left: 50%; display: flex;">
                 <form (ngSubmit)="liker(commentaireA.id)">
                   <input type="hidden" value="{{commentaireA.id}}" name="dislikeId" [(ngModel)]="form1.questionid">
-                  <button>
+                  <button *ngIf="isLoggedIn">
                     <i class="bi bi-hand-thumbs-up-fill"
                       style="color:#3880FF;font-size: 20px;"></i><span>{{commentaireA.likes}}</span>&nbsp;&nbsp;&nbsp;
                   </button>
+                  <span *ngIf="!isLoggedIn">
+                    <i class="bi bi-hand-thumbs-up-fill"
+                      style="color:#3880FF;font-size: 20px;"></i><span>{{commentaireA.likes}}</span>&nbsp;&nbsp;&nbsp;
+                  </span>
                 </form>
                 <form (ngSubmit)="disliker(commentaireA.id)">
                   <input type="hidden" value="{{commentaireA.id}}" name="dislikeId" [(ngModel)]="form.questionid">
-                  <button type="submit">
+                  <button type="submit" *ngIf="isLoggedIn">
                     <i class="bi bi-hand-thumbs-down-fill"
                       style="color:red ; font-size: 20px;"></i><span>{{commentaireA.dislike}}</span>
                   </button>
+                  <span *ngIf="!isLoggedIn">
+                    <i class="bi bi-hand-thumbs-down-fill"
+                      style="color:red ; font-size: 20px;"></i><span>{{commentaireA.dislike}}</span>
+                  </span>
                 </form>
               </div>
             </div>

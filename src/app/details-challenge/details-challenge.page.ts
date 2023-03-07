@@ -57,12 +57,7 @@ export class DetailsChallengePage implements OnInit {
   voirQuestionParChallenge: any;
   etat: any;
   form !: FormGroup
-
   form1 !: FormGroup
-
-
-
-
   showContent(opt: number) {
     this.content = opt;
   }
@@ -198,6 +193,7 @@ export class DetailsChallengePage implements OnInit {
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
             )
             this.equipe.reset();
+            location.reload();
           } else if (this.status == false) {
             swalWithBootstrapButtons.fire(
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
@@ -251,6 +247,7 @@ export class DetailsChallengePage implements OnInit {
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
             )
             this.equipe.reset();
+            location.reload();
           } else if (this.status == false) {
             swalWithBootstrapButtons.fire(
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
@@ -323,6 +320,7 @@ export class DetailsChallengePage implements OnInit {
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
             )
             this.form.reset();
+            location.reload();
           } else if (this.status == false) {
             swalWithBootstrapButtons.fire(
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; color:red'>${this.errorMessage}.</h1>`,
@@ -377,6 +375,7 @@ export class DetailsChallengePage implements OnInit {
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
             )
             this.form.reset();
+            location.reload();
           } else if (this.status == false) {
             swalWithBootstrapButtons.fire(
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; color:red'>${this.errorMessage}.</h1>`,
@@ -434,6 +433,7 @@ export class DetailsChallengePage implements OnInit {
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${this.errorMessage}.</h1>`,
             )
             this.form.reset();
+            location.reload();
           } else if (this.status == false) {
             swalWithBootstrapButtons.fire(
               `<h1  style='font-size:.7em; font-weight: bold;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; color:red'>${this.errorMessage}.</h1>`,
